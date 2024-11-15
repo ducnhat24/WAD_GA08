@@ -18,7 +18,7 @@ body {
 .product_banner .img-container {
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 100vh;
     background: url('/images/ProductDetailBackground.jpg') no-repeat center center/cover;
     display: flex;
     justify-content: center;
@@ -176,4 +176,14 @@ body {
 
 .footer__newsletter .btn:hover {
     background-color: #e68900;
+}
+
+.exterior-car__image{
+    width: 600px;
+    height: auto;
+}
+
+#relatedCars{
+    margin-top: 50px;
+    text-align: center;
 }

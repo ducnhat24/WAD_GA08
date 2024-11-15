@@ -21,9 +21,10 @@
             <div class="product_details col-md-12">
                 <h2>THÔNG SỐ KỸ THUẬT</h2>
             </div>
-            <div class="col-12 col-md-6">
-                <img src="data:image/png;base64,{{product.image}}" alt="{{product.name}} Exterior" class="img-fluid">
-            </div>
+        <div class="col-12 col-md-6">
+            <img src="data:image/png;base64,{{product.image}}" alt="{{product.name}} Exterior" class="img-fluid exterior-car__image w-100 w-sm-90 w-md-80 w-lg-70 w-xl-60 w-xxl-50">
+        </div>
+
             <div class="col-12 col-md-6">
                 <table class="table specifications-table">
                     <tr>
@@ -55,6 +56,36 @@
                         <td class="info">{{product.price}}*</td>
                     </tr>
                 </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <h2 id="relatedCars">Các mẫu xe tương tự</h2>
+            <!-- Related Cars -->
+            <div class="col-lg-9 featured-cars">
+                <hr class="newest-cars-divider">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
+                    {{#each sameProducts}}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <a href="/product/product_details/{{this.id}}">
+                                <img src="data:image/png;base64,{{this.image}}" class="card-img-top" alt="{{this.name}}">
+                            </a>
+                            <div class="card-body">
+                                <a href="/product/product_details/{{this.id}}">
+                                    <h5 class="card-title">{{this.name}}</h5>
+                                </a>
+                                <p class="card-text text-muted mb-1">{{this.price}}</p>
+                                <p class="text-muted">{{this.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
             </div>
         </div>
     </div>
