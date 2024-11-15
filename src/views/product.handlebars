@@ -1,14 +1,16 @@
 <section class="featured-cars-section py-5 bg-light">
     <div class="container">
         <div class="row">
-            <h2 class="feature-cars__title display-4 text-dark text-center">Featured <span class="text-warning">Cars</span></h2>
+            <h2 class="feature-cars__title display-4 text-dark text-center">Featured <span
+                    class="text-warning">Cars</span></h2>
             <p class="text-center">Checkout the featured cars</p>
             <!-- Sidebar -->
             <div class="col-lg-3 mb-4">
                 <div class="sidebar p-3 bg-light shadow">
                     <h4 class="text-dark">Search</h4>
                     <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Search by name">
+                        <input id="search__bar__product" type="text" class="form-control" placeholder="Search by name">
+                        <button onclick="javascript:handleSearch()">+</button>
                     </div>
                     <h5 class="mt-4">Brand</h5>
                     <div class="btn-group-toggle" data-toggle="buttons">
@@ -62,11 +64,12 @@
                     {{#each products}}
                     <div class="col">
                         <div class="card h-100 shadow-sm">
-                            <a href="/product/product_details/{{this.id}}">
-                                <img src="data:image/png;base64,{{this.image}}" class="card-img-top" alt="{{this.name}}">
+                            <a href="/product/product_details/{{this._id}}">
+                                <img src="data:image/png;base64,{{this.image}}" class="card-img-top"
+                                    alt="{{this.name}}">
                             </a>
                             <div class="card-body">
-                                <a href="/product/product_details/{{this.id}}">
+                                <a href="/product/product_details/{{this._id}}">
                                     <h5 class="card-title">{{this.name}}</h5>
                                 </a>
                                 <p class="card-text text-muted mb-1">{{this.price}}</p>

@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-
+const { verifyToken } = require('../middleware/JWTAction');
 const ProductController = require('../controller/ProductController');
 
-router.get('/', ProductController.showProduct);
-router.get('/product_details/:id', ProductController.showProductDetails);
+router.get('/', verifyToken, ProductController.showProduct);
+router.get('/product_details/:id', verifyToken, ProductController.showProductDetails);
 router.get('/search', ProductController.searchProduct);
 
 module.exports = router;

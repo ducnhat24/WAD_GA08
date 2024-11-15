@@ -1,13 +1,16 @@
 const express = require('express');
 const path = require('path');
-const { PrismaClient } = require('@prisma/client');
+// const { PrismaClient } = require('@prisma/client');
 const app = express();
 const port = 3000;
 const { engine } = require('express-handlebars');
 const { route } = require('./routes/index');
 const cookieParser = require('cookie-parser');
+const seed = require('./config/seed');
 app.use(express.json());
 // const prisma = new PrismaClient();
+const db = require('./config/index');
+db.connect();
 
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
