@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const { generateAccessToken } = require('../middleware/JWTAction');
 
 class UserService {
     constructor() {
@@ -12,7 +13,10 @@ class UserService {
             });
 
             if (existingUser) {
-                return { msg: "User already exists" };
+                return {
+                    status: "error",
+                    msg: "User already exists"
+                };
             }
 
             await this.prisma.user.create({
@@ -22,20 +26,58 @@ class UserService {
                     password: user.password
                 }
             });
-            return { msg: "User added successfully" };
+            return {
+                status: "success",
+                msg: "User added successfully"
+            };
         } catch (error) {
             if (error.code === 'P2002') {
-                console.error("Unique constraint failed: Email already exists.");
-            } else {
-                console.error("Error adding user:", error.message);
+
+                return {
+                    status: "error",
+                    msg: "User already exists"
+                }
             }
-            return { msg: "Error adding user" };
+            return {
+                status: "error",
+                msg: "Error adding user"
+            };
         }
 
     }
 
     async getUsers() {
         return await this.prisma.user.findMany();
+    }
+
+    async login(user) {
+        const existingUser = await this.prisma.user.findFirst({
+            where: {
+                OR: [
+                    { email: user.useraccount },
+                    { name: user.useraccount }
+                ],
+                password: user.password
+            }
+        });
+
+        if (!existingUser) {
+            return {
+                status: "error",
+                msg: "Invalid credentials"
+            };
+        }
+
+        const payload = {
+            id: existingUser.id,
+            name: existingUser.name
+        };
+
+        return {
+            status: "success",
+            token: generateAccessToken(payload),
+            msg: "Login successful"
+        };
     }
 }
 

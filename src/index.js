@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 const { engine } = require('express-handlebars');
 const { route } = require('./routes/index');
-
+const cookieParser = require('cookie-parser');
 app.use(express.json());
 // const prisma = new PrismaClient();
 
@@ -14,6 +14,7 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
 
 // Example route using Prisma
 app.get('/users', async (req, res) => {

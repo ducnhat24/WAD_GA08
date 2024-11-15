@@ -90,6 +90,15 @@
     font-size: 20px;
 }
 
+.header__details .header__account .header__account__item button {
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+}
+
 .header .header__sidebar {
     position: absolute;
     right: 0;
@@ -132,6 +141,7 @@
     .header .header__btn__nav {
         display: block;
     }
+
     .header .header__details {
         display: none;
     }
