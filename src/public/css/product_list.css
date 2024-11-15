@@ -1,0 +1,70 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+/* Newest Cars Section */
+.newest-cars {
+    margin-top: 100px;
+    background-color: #f8f9fa;
+}
+
+.newest-cars h2 span {
+    color: #c8c800;
+}
+
+.car-feature {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+/* Featured Cars Section */
+.featured-cars h2 span {
+    color: #c8c800;
+}
+
+.card-title {
+    color: #333;
+    font-weight: 700;
+    font-size : 1.0rem;
+    text-align: left;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.card{
+    padding: 20px;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit:scale-down;
+}
+
+.check_latest_text{
+    text-align: center;
+}
+
+.text-muted{
+    text-align: left;
+}
+
+.newest-cars-divider{
+    width: 100px;
+    height: 3px;
+    background-color: #d4d700;
+    margin: 0.5rem auto;
+}

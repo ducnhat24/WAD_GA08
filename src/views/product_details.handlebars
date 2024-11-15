@@ -1,0 +1,61 @@
+<!-- Banner Section -->
+<section class="product_banner">
+    <div class=".container-fluid">
+        <div class="row banner__temp">
+            <div class="col-12 col-md-12 img-container">
+                <img src="data:image/png;base64,{{product.image}}" alt="CarBanner" class="img-fluid">
+            </div>
+            <div class="banner__des col-12 col-md-6">
+                <h1>911 CARRERA GTS</h1>
+                <p>Từ {{product.price}} VND • {{product.power}} PS • {{product.acceleration}} giây</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Car Specifications -->
+<section class="specifications">
+    <div class="container">
+        <div class="row">
+            <div class="product_details col-md-12">
+                <h2>THÔNG SỐ KỸ THUẬT</h2>
+            </div>
+            <div class="col-12 col-md-6">
+                <img src="data:image/png;base64,{{product.image}}" alt="{{product.name}} Exterior" class="img-fluid">
+            </div>
+            <div class="col-12 col-md-6">
+                <table class="table specifications-table">
+                    <tr>
+                        <td class="detail">Công suất</td>
+                        <td class="info">{{product.power}}</td>
+                    </tr>
+                    <tr>
+                        <td class="detail">Mô-men xoắn cực đại</td>
+                        <td class="info">{{product.torque}}</td>
+                    </tr>
+                    <tr>
+                        <td class="detail">Tăng tốc từ 0 - 100 km/giờ</td>
+                        <td class="info">{{product.acceleration}} giây</td>
+                    </tr>
+                    <tr>
+                        <td class="detail">Tốc độ tối đa</td>
+                        <td class="info">{{product.topSpeed}} km/giờ</td>
+                    </tr>
+                    <tr>
+                        <td class="detail">Mức tiêu thụ kết hợp</td>
+                        <td class="info">{{product.combinedConsumption}}</td>
+                    </tr>
+                    <tr>
+                        <td class="detail">Lượng khí thải CO2</td>
+                        <td class="info">{{product.CO2Emissions}}</td>
+                    </tr>
+                    <tr>
+                        <td class="detail">Giá tiêu chuẩn</td>
+                        <td class="info">{{product.price}}*</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

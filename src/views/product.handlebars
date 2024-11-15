@@ -1,0 +1,112 @@
+<!-- Newest Cars Section -->
+<section class="newest-cars text-center py-5">
+    <div class="container">
+        <h2 class="display-4 text-dark">Newest <span class="text-warning">Cars</span></h2>
+        <p class="check_latest_text">Checkout the latest cars</p>
+        <hr class="newest-cars-divider">
+        <div class="row align-items-center my-4 shadow rounded p-4 bg-white">
+            <div class="col-md-6">
+                <a href="/product/product_details"><img src="../images/ncm2.png" alt="BMW Series-3"
+                        class="img-fluid"></a>
+            </div>
+            <div class="col-md-6 text-start">
+                <h3>BMW SERIES-3 DRAGON</h3>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.</p>
+                <a href="/product/product_details"><button class="btn btn-warning text-white fw-bold">View
+                        Details</button></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Cars Section -->
+<section class="featured-cars text-center py-5 bg-light">
+    <div class="container">
+        <h2 class="display-4 text-dark">Featured <span class="text-warning">Cars</span></h2>
+        <p class="check_latest_text">Checkout the featured cars</p>
+        <hr class="newest-cars-divider">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
+            {{#each products}}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <a href="/product/product_details/{{this.id}}"><img src="data:image/png;base64,{{this.image}}"
+                            class="card-img-top" alt="BMW 6-Series"></a>
+                    <div class="card-body">
+                        <a href="/product/product_details/{{this.id}}">
+                            <h5 class="card-title">{{this.name}}</h5>
+                        </a>
+                        <p class="card-text text-muted mb-1">{{this.price}}</p>
+                        <p class="text-muted">{{this.description}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            {{!-- <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <a href="/product/product_details"><img src="../images/fc2.png" class="card-img-top"
+                            alt="BMW 6-Series"></a>
+                    <div class="card-body">
+                        <a href="/product/product_details">
+                            <h5 class="card-title">Chevrolet Camaro WMV20</h5>
+                        </a>
+                        <p class="card-text text-muted mb-1">$66,575</p>
+                        <p class="text-muted">Neque porro quisquam est, qui dolorsem ipsum quia dolor sit amet.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <a href="/product/product_details"><img src="../images/fc3.png" class="card-img-top"
+                            alt="BMW 6-Series"></a>
+                    <div class="card-body">
+                        <a href="/product/product_details">
+                            <h5 class="card-title">Lamborghini V520</h5>
+                        </a>
+                        <p class="card-text text-muted mb-1">$125,250</p>
+                        <p class="text-muted">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <a href="/product/product_details"><img src="../images/fc4.png" class="card-img-top"
+                            alt="BMW 6-Series"></a>
+                    <div class="card-body">
+                        <a href="/product/product_details">
+                            <h5 class="card-title">Audi A3 Sedan</h5>
+                        </a>
+                        <p class="card-text text-muted mb-1">$95,500</p>
+                        <p class="text-muted">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <a href="/product/product_details"><img src="../images/fc5.png" class="card-img-top"
+                            alt="BMW 6-Series"></a>
+                    <div class="card-body">
+                        <a href="/product/product_details">
+                            <h5 class="card-title">Porsche 718 Cayman</h5>
+                        </a>
+                        <p class="card-text text-muted mb-1">$48,850</p>
+                        <p class="text-muted">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <a href="/product/product_details"><img src="../images/fc6.png" class="card-img-top"
+                            alt="BMW 6-Series"></a>
+                    <div class="card-body">
+                        <a href="/product/product_details">
+                            <h5 class="card-title">BMW 8-Series Coupe</h5>
+                        </a>
+                        <p class="card-text text-muted mb-1">$56,000</p>
+                        <p class="text-muted">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+                    </div>
+                </div>
+            </div> --}}
+        </div>
+    </div>
+</section>

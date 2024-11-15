@@ -1,0 +1,179 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Banner Section */
+.product_banner {
+    position: relative;
+    text-align: center;
+    color: white;
+    width: 100%;
+    height: 100vh;
+}
+
+.product_banner .img-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: url('/images/ProductDetailBackground.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .product_banner img {
+    width: 100px;
+    height: 100%;
+    object-fit: contain;
+} */
+
+.banner__temp {
+    position: relative;
+}
+
+.banner__des {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    color: rgb(216, 160, 39);
+    -webkit-text-stroke: 1px #000;
+    /* Màu chữ */
+}
+
+.banner__des h1 {
+    font-size: 3em;
+}
+
+/* Specifications Section */
+.specifications {
+    padding: 20px;
+    text-align: center;
+}
+
+.specifications__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.specifications__content img {
+    width: 300px;
+    margin-right: 20px;
+}
+
+.table {
+    text-align: left;
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.product_details {
+    margin-top: 100px;
+    text-align: center;
+}
+
+/* Specifications Table */
+.specifications-table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.specifications-table td {
+    padding: 8px;
+}
+
+.specifications-table .detail {
+    text-align: left;
+    font-weight: bold;
+    width: 50%;
+    /* Ensures both columns are balanced */
+}
+
+.specifications-table .info {
+    text-align: right;
+    width: 50%;
+}
+
+
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 40px 0;
+}
+
+.footer__info,
+.footer__brands,
+.footer__newsletter {
+    margin-bottom: 20px;
+}
+
+.footer__info h5,
+.footer__brands h5,
+.footer__newsletter h5 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: left;
+
+}
+
+.footer__info p,
+.footer__newsletter p {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin: 0;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.footer__brands .brand-columns {
+    display: flex;
+    gap: 20px;
+}
+
+.footer__brands ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    color: #ccc;
+    text-align: left;
+}
+
+.footer__brands ul li {
+    margin-bottom: 5px;
+}
+
+.footer__newsletter .newsletter-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__newsletter .form-control {
+    background-color: #555;
+    border: none;
+    color: #ccc;
+    border-radius: 5px;
+}
+
+.footer__newsletter .btn {
+    background-color: #ff9900;
+    border: none;
+    font-weight: bold;
+}
+
+.footer__newsletter .btn:hover {
+    background-color: #e68900;
+}
