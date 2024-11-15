@@ -14,43 +14,54 @@
                     </div>
                     <h5 class="mt-4">Brand</h5>
                     <div class="btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> BMW
+                        <input type="checkbox" id="checkbox_bmw">
+                        <label class="btn btn-outline-warning" id="brand__bmw" for="checkbox_bmw">
+                            BMW
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> Ferrari
+                        <input type="checkbox" id="checkbox_ferrari">
+                        <label class="btn btn-outline-warning" for="checkbox_ferrari">
+                            Ferrari
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> Audi
+                        <input type="checkbox" id="checkbox_audi">
+                        <label class="btn btn-outline-warning" for="checkbox_audi">
+                            Audi
                         </label>
                     </div>
+
                     <h5 class="mt-4">Price</h5>
                     <input type="range" class="form-range" min="1000" max="50000">
                     <h5 class="mt-4">Model</h5>
                     <div class="btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> Sedan
+                        <input type="checkbox" id="checkbox_sedan"> 
+                        <label class="btn btn-outline-warning" for="checkbox_sedan">
+                            Sedan
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> SUV
+                        <input type="checkbox" id="checkbox_suv">
+                        <label class="btn btn-outline-warning" for="checkbox_suv">
+                            SUV
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> Van
+                        <input type="checkbox" id="checkbox_van">
+                        <label class="btn btn-outline-warning" for="checkbox_van">
+                            Van
                         </label>
                     </div>
                     <h5 class="mt-4">Sort</h5>
                     <div class="btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-warning">
-                            <input type="radio" name="sort"> Price ↑
+                        <input type="radio" name="sort" id="sort_price_asc">
+                        <label class="btn btn-outline-warning" for="sort_price_asc">
+                            Price ↑
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="radio" name="sort"> Price ↓
+                        <input type="radio" name="sort" id="sort_price_desc">
+                        <label class="btn btn-outline-warning" for="sort_price_desc">
+                            Price ↓
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="radio" name="sort"> Name ↑
+                        <input type="radio" name="sort" id="sort_name_asc">
+                        <label class="btn btn-outline-warning" for="sort_name_asc">
+                            Name ↑
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="radio" name="sort"> Name ↓
+                        <input type="radio" name="sort" id="sort_name_desc">
+                        <label class="btn btn-outline-warning" for="sort_name_desc">
+                            Name ↓
                         </label>
                     </div>
                 </div>
