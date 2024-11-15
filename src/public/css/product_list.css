@@ -75,3 +75,55 @@ body {
 .btn-group-toggle{
     margin: 5px;
 }
+
+input[type="checkbox"],
+input[type="radio"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked + label,
+input[type="radio"]:checked + label {
+    background-color: orange;
+    color: white;
+}
+
+label {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid orange;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+    color: orange;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+
+
+input[type="range"] {
+    -webkit-appearance: none; /* Loại bỏ giao diện mặc định */
+    width: 100%; 
+    height: 8px; 
+    background: orange;
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid orange;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type="range"]:hover {
+    background: #ffcc66;
+}

@@ -1,54 +1,67 @@
 <section class="featured-cars-section py-5 bg-light">
     <div class="container">
         <div class="row">
-            <h2 class="feature-cars__title display-4 text-dark text-center">Featured <span class="text-warning">Cars</span></h2>
+            <h2 class="feature-cars__title display-4 text-dark text-center">Featured <span
+                    class="text-warning">Cars</span></h2>
             <p class="text-center">Checkout the featured cars</p>
             <!-- Sidebar -->
             <div class="col-lg-3 mb-4">
                 <div class="sidebar p-3 bg-light shadow">
                     <h4 class="text-dark">Search</h4>
                     <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Search by name">
+                        <input id="search__bar__product" type="text" class="form-control" placeholder="Search by name">
+                        <button onclick="javascript:handleSearch()">+</button>
                     </div>
                     <h5 class="mt-4">Brand</h5>
                     <div class="btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> BMW
+                        <input type="checkbox" id="checkbox_bmw">
+                        <label class="btn btn-outline-warning" id="brand__bmw" for="checkbox_bmw">
+                            BMW
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> Ferrari
+                        <input type="checkbox" id="checkbox_ferrari">
+                        <label class="btn btn-outline-warning" for="checkbox_ferrari">
+                            Ferrari
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> Audi
+                        <input type="checkbox" id="checkbox_audi">
+                        <label class="btn btn-outline-warning" for="checkbox_audi">
+                            Audi
                         </label>
                     </div>
+
                     <h5 class="mt-4">Price</h5>
                     <input type="range" class="form-range" min="1000" max="50000">
                     <h5 class="mt-4">Model</h5>
                     <div class="btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> Sedan
+                        <input type="checkbox" id="checkbox_sedan"> 
+                        <label class="btn btn-outline-warning" for="checkbox_sedan">
+                            Sedan
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> SUV
+                        <input type="checkbox" id="checkbox_suv">
+                        <label class="btn btn-outline-warning" for="checkbox_suv">
+                            SUV
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="checkbox"> Van
+                        <input type="checkbox" id="checkbox_van">
+                        <label class="btn btn-outline-warning" for="checkbox_van">
+                            Van
                         </label>
                     </div>
                     <h5 class="mt-4">Sort</h5>
                     <div class="btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-warning">
-                            <input type="radio" name="sort"> Price ↑
+                        <input type="radio" name="sort" id="sort_price_asc">
+                        <label class="btn btn-outline-warning" for="sort_price_asc">
+                            Price ↑
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="radio" name="sort"> Price ↓
+                        <input type="radio" name="sort" id="sort_price_desc">
+                        <label class="btn btn-outline-warning" for="sort_price_desc">
+                            Price ↓
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="radio" name="sort"> Name ↑
+                        <input type="radio" name="sort" id="sort_name_asc">
+                        <label class="btn btn-outline-warning" for="sort_name_asc">
+                            Name ↑
                         </label>
-                        <label class="btn btn-outline-warning">
-                            <input type="radio" name="sort"> Name ↓
+                        <input type="radio" name="sort" id="sort_name_desc">
+                        <label class="btn btn-outline-warning" for="sort_name_desc">
+                            Name ↓
                         </label>
                     </div>
                 </div>
@@ -62,11 +75,12 @@
                     {{#each products}}
                     <div class="col">
                         <div class="card h-100 shadow-sm">
-                            <a href="/product/product_details/{{this.id}}">
-                                <img src="data:image/png;base64,{{this.image}}" class="card-img-top" alt="{{this.name}}">
+                            <a href="/product/product_details/{{this._id}}">
+                                <img src="data:image/png;base64,{{this.image}}" class="card-img-top"
+                                    alt="{{this.name}}">
                             </a>
                             <div class="card-body">
-                                <a href="/product/product_details/{{this.id}}">
+                                <a href="/product/product_details/{{this._id}}">
                                     <h5 class="card-title">{{this.name}}</h5>
                                 </a>
                                 <p class="card-text text-muted mb-1">{{this.price}}</p>

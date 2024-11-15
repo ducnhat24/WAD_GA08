@@ -171,3 +171,18 @@ function handleLogout() {
             })
         });
 }
+
+function handleSearch() {
+    const query = document.querySelector("#search__bar__product").value;
+    console.log("Search query: ", query);
+    if (!query) {
+        notify({
+            type: "warning",
+            msg: "Please enter a search query",
+        });
+        return;
+    }
+
+    location.href = "/product/search?keysearch=" + query;
+    // Send data to server
+}

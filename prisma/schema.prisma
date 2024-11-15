@@ -17,17 +17,31 @@ model User {
 }
 
 model Product {
-    id                  String   @id @default(cuid())
+    id                  String    @id @default(cuid())
     name                String
     price               BigInt
     description         String?
+    brand               String
+    model               String
+    year                Int
     power               String // Công suất - power output in PS and kW
     torque              String
     acceleration        Float
     maxSpeed            Float
     combinedConsumption Float?
     CO2Emissions        Float?
-    createdAt           DateTime @default(now())
-    updatedAt           DateTime @updatedAt
-    image               String?
+    createdAt           DateTime  @default(now())
+    updatedAt           DateTime  @updatedAt
+    image               String
+    discountId          String? // Foreign key to Discount
+    Discount            Discount? @relation(fields: [discountId], references: [id]) // Relation to Discount
+}
+
+model Discount {
+    id        String    @id @default(cuid())
+    name      String
+    discount  Float // Discount percentage or value
+    startDate DateTime
+    endDate   DateTime
+    products  Product[] // One discount can apply to multiple products
 }
