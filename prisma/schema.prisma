@@ -32,12 +32,3 @@ model Product {
     image               String
 }
 
-model Discount {
-  id         String     @id @default(cuid())
-  name       String     
-  discount   Float      
-  startDate  DateTime   
-  endDate    DateTime   
-  products   Product[]  // Mỗi khuyến mãi có thể áp dụng cho nhiều sản phẩm
-  
-}
