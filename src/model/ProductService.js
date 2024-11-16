@@ -80,6 +80,43 @@ class ProductService {
             throw new Error("An error occurred while fetching similar products");
         }
     }
+
+    async filterProduct(brand, model, feature, type) {
+        try {
+            const sortType = type === 'asc' ? 1 : -1;
+            if (feature === 'price') {
+                const products = await Product.find({
+                    $and: [
+                        brand ? { brand } : {},
+                        model ? { model } : {}
+                    ]
+                }).sort({ price: sortType });
+                return products;
+            }
+
+            if (feature === 'name') {
+                const products = await Product.find({
+                    $and: [
+                        brand ? { brand } : {},
+                        model ? { model } : {}
+                    ]
+                }).sort({ name: sortType });
+                return products;
+            }
+
+            const products = await Product.find({
+                $and: [
+                    brand ? { brand } : {},
+                    model ? { model } : {},
+                ]
+            });
+            return products;
+        }
+        catch (error) {
+            console.error(error);
+            throw new Error("An error occurred while fetching filtered products");
+        }
+    }
 }
 
 module.exports = ProductService;

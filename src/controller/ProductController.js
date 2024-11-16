@@ -38,6 +38,21 @@ class ProductController {
             res.status(500).send("An error occurred while fetching products");
         }
     }
+
+    async filterProduct(req, res) {
+        const brand = req.query.brand;
+        const model = req.query.model;
+        const feature = req.query.feature;
+        const type = req.query.type;
+
+        try {
+            const products = await productService.filterProduct(brand, model, feature, type);
+            res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products) });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("An error occurred while fetching products");
+        }
+    }
 }
 
 module.exports = new ProductController;
