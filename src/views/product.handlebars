@@ -13,7 +13,15 @@
                         <button onclick="javascript:handleSearch()">+</button>
                     </div>
                     <h5 class="mt-4">Brand</h5>
+                    {{#each brands}}
                     <div id="brand-filter" class="btn-group-toggle" data-toggle="buttons">
+                        <input type="checkbox" id="checkbox_{{this}}">
+                        <label class="btn btn-outline-warning" id="brand__{{this}}" for="checkbox_{{this}}">
+                            {{this}}
+                        </label>
+                    </div>
+                    {{/each}}
+                    {{!-- <div id="brand-filter" class="btn-group-toggle" data-toggle="buttons">
                         <input type="checkbox" id="checkbox_bmw">
                         <label class="btn btn-outline-warning" id="brand__bmw" for="checkbox_bmw">
                             BMW
@@ -27,12 +35,24 @@
                             Audi
                         </label>
 
-                    </div>
+                    </div> --}}
 
                     <h5 class="mt-4">Price</h5>
                     <input type="range" class="form-range" min="1000" max="50000">
                     <h5 class="mt-4">Model</h5>
+                    {{#each models}}
+
                     <div id="model-filter" class="btn-group-toggle" data-toggle="buttons">
+                        <input type="checkbox" id="checkbox_{{this}}">
+                        <label class="btn btn-outline-warning" id="model__{{this}}" for="checkbox_{{this}}">
+                            {{this}}
+                        </label>
+
+                    </div>
+
+                    {{/each}}
+
+                    {{!-- <div id="model-filter" class="btn-group-toggle" data-toggle="buttons">
                         <input type="checkbox" id="checkbox_sedan">
                         <label class="btn btn-outline-warning" for="checkbox_sedan">
                             Sedan
@@ -45,7 +65,7 @@
                         <label class="btn btn-outline-warning" for="checkbox_van">
                             Van
                         </label>
-                    </div>
+                    </div> --}}
                     <h5 class="mt-4">Sort</h5>
                     <div id="sort-filter" class="btn-group-toggle" data-toggle="buttons">
                         <input type="radio" name="sort" id="sort_price_asc">

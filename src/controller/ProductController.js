@@ -5,8 +5,10 @@ class ProductController {
 
     async showProduct(req, res) {
         const value = await productService.getAllProducts();
+        const brands = await productService.getAllBrands();
+        const models = await productService.getAllModels();
         const products = value.data;
-        res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products) });
+        res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products), brands: brands, models: models });
     }
 
     async showProductDetails(req, res) {
@@ -41,12 +43,14 @@ class ProductController {
 
     async filterProduct(req, res) {
         const query = req.query;
+        const brands = await productService.getAllBrands();
+        const models = await productService.getAllModels();
         if (!query) {
             return;
         }
         try {
             const products = await productService.filterProduct(query);
-            res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products) });
+            res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products), brands: brands, models: models });
         }
         catch (error) {
             console.error(error);
