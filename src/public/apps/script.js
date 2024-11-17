@@ -185,9 +185,29 @@ $(document).ready(function () {
   });
 });
 
+// function handleSearch() {
+//   const query = document.querySelector("#search__bar__product").value;
+//   console.log("Search query: ", query);
+//   if (!query) {
+//     notify({
+//       type: "warning",
+//       msg: "Please enter a search query",
+//     });
+//     return;
+//   }
+
+//   location.href = "/product/search?keysearch=" + query;
+//   // Send data to server
+// }
+
 function handleSearch() {
   const query = document.querySelector("#search__bar__product").value;
-  console.log("Search query: ", query);
+  const selectedBrands = Array.from(document.querySelectorAll("input[type=checkbox]:checked"))
+    .map(checkbox => checkbox.id.replace('checkbox_', ''));
+  const selectedSort = document.querySelector("input[name=sort]:checked")?.id || '';
+  const priceRange = document.querySelector("input[type=range]").value;
+
+  // Kiểm tra nếu không có từ khóa tìm kiếm
   if (!query) {
     notify({
       type: "warning",
@@ -196,6 +216,19 @@ function handleSearch() {
     return;
   }
 
-  location.href = "/product/search?keysearch=" + query;
-  // Send data to server
+  // Tạo query string từ các giá trị đã thu thập
+  const queryParams = {
+    keysearch: query,
+    brands: selectedBrands.join(','),  // Chuyển mảng thành chuỗi
+    sort: selectedSort,
+    price: priceRange
+  };
+
+  // Chuyển các giá trị vào URL query string
+  const queryString = new URLSearchParams(queryParams).toString();
+
+  // Điều hướng đến trang tìm kiếm với các tham số đã chọn
+  location.href = "/product/search?" + queryString;
+
+  // Send data to server (sẽ xử lý trên server)
 }
