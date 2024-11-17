@@ -5,16 +5,16 @@ const port = 3000;
 const { engine } = require('express-handlebars');
 const { route } = require('./routes/index');
 const cookieParser = require('cookie-parser');
+const seed = require('./config/seed');
 app.use(express.json());
 
 const db = require('./config/index');
 db.connect();
-
 // Cấu hình Handlebars với extension mặc định
 app.engine("handlebars", engine({
   extname: ".handlebars", // Sử dụng phần mở rộng .handlebars
   helpers: {
-    eq: (a, b) => a === b,
+    eqString: (a, b) => String(a) === String(b),
     includes: (item, array) => Array.isArray(array) && array.includes(item),
   },
 }));

@@ -89,6 +89,7 @@ class ProductService {
             const sortBy = query.sortby;
             const sortType = query.sorttype;
 
+            console.log(brandArray);
             let products = await Product.find();
             if (brandArray.length > 0) {
                 products = products.filter((product) => brandArray.includes(product.brand));

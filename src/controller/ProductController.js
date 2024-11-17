@@ -22,6 +22,7 @@ class ProductController {
 
     async showProductDetails(req, res) {
         const productId = req.params.id;
+
         try {
             const product = await productService.getProductById(productId);
             if (!product) {
@@ -91,20 +92,24 @@ class ProductController {
     //     }
     // }
     async filterProduct(req, res) {
-        const { brand, model, feature, type, price, sort } = req.query;  // Lấy các tham số từ query
+        const query = req.query;  // Lấy các tham số từ query
+        const brands = await productService.getAllBrands();
+        const models = await productService.getAllModels();
 
         try {
-            const products = await productService.filterProduct(brand, model, feature, type);
-
+            const products = await productService.filterProduct(query);
+            const sort = query.sortby + "_" + query.sorttype;
+            console.log(sort);
             // Trả lại các tham số để giữ lại trạng thái bộ lọc
             res.render('product', {
                 isAuthenticated: req.isAuthenticated,
                 products: multipleMongooseToObject(products),
                 searchValue: '',  // Có thể để rỗng nếu không có tìm kiếm
-                selectedBrands: brand ? brand.split(',') : [],
-                selectedModels: model ? model.split(',') : [],
-                selectedPrice: price || 1000,
-                selectedSort: sort || ''
+                selectedBrands: query.brands ? query.brands.split(',') : [],
+                selectedModels: query.models ? query.models.split(',') : [],
+                selectedSort: sort || '',
+                brands: brands,
+                models: models
             });
         } catch (error) {
             console.error(error);
@@ -113,22 +118,22 @@ class ProductController {
     }
 
 
-//     async filterProduct(req, res) {
-//         const query = req.query;
-//         const brands = await productService.getAllBrands();
-//         const models = await productService.getAllModels();
-//         if (!query) {
-//             return;
-//         }
-//         try {
-//             const products = await productService.filterProduct(query);
-//             res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products), brands: brands, models: models });
-//         }
-//         catch (error) {
-//             console.error(error);
-//             res.status(500).send("An error occurred while fetching products");
-//         }
-//     }
+    //     async filterProduct(req, res) {
+    //         const query = req.query;
+    //         const brands = await productService.getAllBrands();
+    //         const models = await productService.getAllModels();
+    //         if (!query) {
+    //             return;
+    //         }
+    //         try {
+    //             const products = await productService.filterProduct(query);
+    //             res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products), brands: brands, models: models });
+    //         }
+    //         catch (error) {
+    //             console.error(error);
+    //             res.status(500).send("An error occurred while fetching products");
+    //         }
+    //     }
 }
 
 module.exports = new ProductController;
