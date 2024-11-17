@@ -59,16 +59,21 @@ class ProductController {
 
         try {
             const products = await productService.searchProduct(keysearch);
+            
+            const allBrands = await productService.getAllBrands();
+            const allModels = await productService.getAllModels();
 
             // Trả lại các tham số để giữ lại trạng thái tìm kiếm và bộ lọc
             res.render('product', {
                 isAuthenticated: req.isAuthenticated,
                 products: multipleMongooseToObject(products),
-                searchValue: keysearch,
-                selectedBrands: brands ? brands.split(',') : [],
-                selectedModels: models ? models.split(',') : [],
+                // searchValue: keysearch,
+                // selectedBrands: brands ? brands.split(',') : [],
+                // selectedModels: models ? models.split(',') : [],
                 selectedPrice: price || 1000,
-                selectedSort: sort || ''
+                selectedSort: sort || '',
+                brands: allBrands,
+                models: allModels
             });
         } catch (error) {
             console.error(error);

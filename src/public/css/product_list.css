@@ -127,3 +127,45 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]:hover {
     background: #ffcc66;
 }
+
+.fas.fa-search {
+    color: #ffffff; 
+    font-size: 1.2rem; /* Kích thước */
+
+    border-radius: 8px;
+}
+
+#search__bar__product{
+    margin-right: 8px;
+}
+
+#button_search{    
+    background-color: #ffa500;
+    color: white;
+    border: none;
+    padding: 9px;
+    border-radius: 8px;
+}
+
+#button_search:hover{
+    background-color: #ffcc66;
+}
+
+.fas fa-filter{
+    color: #ffffff; 
+    font-size: 1.2rem; /* Kích thước */
+
+    border-radius: 8px;
+}
+
+#button_filter{    
+    background-color: #ffa500;
+    color: white;
+    border: none;
+    padding: 9px;
+    border-radius: 8px;
+}
+
+#button_filter:hover{
+    background-color: #ffcc66;
+}

@@ -8,10 +8,12 @@
             <div class="col-lg-3 mb-4">
                 <div class="sidebar p-3 bg-light shadow">
                     <h4 class="text-dark">Search</h4>
-                    <div class="mb-3">
+                    <div class="mb-3 d-flex align-items-center">
                         <input id="search__bar__product" type="text" class="form-control" placeholder="Search by name"
                             value="{{searchValue}}">
-                        <button onclick="javascript:handleSearch()">+</button>
+                        <button id="button_search" onclick="javascript:handleSearch()">
+                            <i class="fas fa-search"></i> <!-- Icon search -->
+                        </button>
                     </div>
                     <h5 class="mt-4">Brand</h5>
                     <div id="brand-filter" class="btn-group-toggle" data-toggle="buttons">
@@ -67,7 +69,11 @@
                         <label class="btn btn-outline-warning" for="sort_price_desc">Price ↓</label>
 
                     </div>
-                    <button onclick="javascript:handleFilter()">+</button>
+                    <div class="d-flex justify-content-center mt-4">
+                        <button id="button_filter" class="btn btn-warning" onclick="javascript:handleFilter()">
+                            <i class="fas fa-filter"></i> <!-- Icon filter -->
+                        </button>
+                    </div>
                 </div>
             </div>
 
