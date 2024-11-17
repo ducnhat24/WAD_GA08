@@ -9,7 +9,7 @@ class ProductController {
     //     res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products) });
     // }
     async showProduct(req, res) {
-        const { keysearch, brands, models, price, sort } = req.query;  // Lấy các tham số từ query
+        // const { keysearch, brands, models, price, sort } = req.query;  // Lấy các tham số từ query
 
         // Fetch sản phẩm từ productService
         const value = await productService.getAllProducts();
