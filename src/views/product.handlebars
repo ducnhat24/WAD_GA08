@@ -14,62 +14,36 @@
                         <button onclick="javascript:handleSearch()">+</button>
                     </div>
                     <h5 class="mt-4">Brand</h5>
-                    <div class="btn-group-toggle" data-toggle="buttons">
-                        {{!-- <input type="checkbox" id="checkbox_bmw">
-                        <label class="btn btn-outline-warning" id="brand__bmw" for="checkbox_bmw">
-                            BMW
-                        </label>
-                        <input type="checkbox" id="checkbox_ferrari">
-                        <label class="btn btn-outline-warning" for="checkbox_ferrari">
-                            Ferrari
-                        </label>
-                        <input type="checkbox" id="checkbox_audi">
-                        <label class="btn btn-outline-warning" for="checkbox_audi">
-                            Audi
-                        </label> --}}
-                        <input type="checkbox" id="checkbox_bmw" {{#if (includes "bmw" selectedBrands)}}checked{{/if}}>
-                        <label class="btn btn-outline-warning" for="checkbox_bmw">BMW</label>
 
-                        <input type="checkbox" id="checkbox_ferrari" {{#if (includes "ferrari" selectedBrands)}}checked{{/if}}>
-                        <label class="btn btn-outline-warning" for="checkbox_ferrari">Ferrari</label>
-
-                        <input type="checkbox" id="checkbox_audi" {{#if (includes "audi" selectedBrands)}}checked{{/if}}>
-                        <label class="btn btn-outline-warning" for="checkbox_audi">Audi</label>
+                    {{#each brands}}
+                    <div id="brand-filter" class="btn-group-toggle" data-toggle="buttons">
+                        <input type="checkbox" id="checkbox_{{this}}">
+                        <label class="btn btn-outline-warning" id="brand__{{this}}" for="checkbox_{{this}}">
+                            {{this}}
+                        </label>
                     </div>
-
+                    {{/each}}
+                    
                     <h5 class="mt-4">Price</h5>
                     {{!-- <input type="range" class="form-range" min="1000" max="50000"> --}}
                     <input type="range" class="form-range" min="1000" max="50000" value="{{selectedPrice}}">
                     <h5 class="mt-4">Model</h5>
-                    <div class="btn-group-toggle" data-toggle="buttons">
-                        {{!-- <input type="checkbox" id="checkbox_sedan"> 
-                        <label class="btn btn-outline-warning" for="checkbox_sedan">
-                            Sedan
+
+                    {{#each models}}
+
+                    <div id="model-filter" class="btn-group-toggle" data-toggle="buttons">
+                        <input type="checkbox" id="checkbox_{{this}}">
+                        <label class="btn btn-outline-warning" id="model__{{this}}" for="checkbox_{{this}}">
+                            {{this}}
                         </label>
-                        <input type="checkbox" id="checkbox_suv">
-                        <label class="btn btn-outline-warning" for="checkbox_suv">
-                            SUV
-                        </label>
-                        <input type="checkbox" id="checkbox_van">
-                        <label class="btn btn-outline-warning" for="checkbox_van">
-                            Van
-                        </label> --}}
 
-                        {{!-- VY oi sao cai query model lai nam trong brands z á --}}
-                        {{!-- selectedModels --}}
-                        {{!-- selectedBrands --}}
-                        <input type="checkbox" id="checkbox_sedan" {{#if (includes "sedan" selectedBrands)}}checked{{/if}}>
-                        <label class="btn btn-outline-warning" for="checkbox_sedan">Sedan</label>
-
-                        <input type="checkbox" id="checkbox_suv" {{#if (includes "suv" selectedBrands)}}checked{{/if}}>
-                        <label class="btn btn-outline-warning" for="checkbox_suv">SUV</label>
-
-                        <input type="checkbox" id="checkbox_van" {{#if (includes "van" selectedBrands)}}checked{{/if}}>
-                        <label class="btn btn-outline-warning" for="checkbox_van">Van</label>
                     </div>
+                    {{/each}}
+
+                    </div> --}}
                     <h5 class="mt-4">Sort</h5>
-                    <div class="btn-group-toggle" data-toggle="buttons">
-                        {{!-- <input type="radio" name="sort" id="sort_price_asc">
+                    <div id="sort-filter" class="btn-group-toggle" data-toggle="buttons">
+                        <input type="radio" name="sort" id="sort_price_asc">
                         <label class="btn btn-outline-warning" for="sort_price_asc">
                             Price ↑
                         </label>
@@ -93,6 +67,7 @@
                         <button onclick="javascript:handleFilter()">+</button>
 
                     </div>
+                    <button onclick="javascript:handleFilter()">+</button>
                 </div>
             </div>
 

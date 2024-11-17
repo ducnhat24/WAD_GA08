@@ -13,20 +13,12 @@ class ProductController {
 
         // Fetch sản phẩm từ productService
         const value = await productService.getAllProducts();
+        const brands = await productService.getAllBrands();
+        const models = await productService.getAllModels();
         const products = value.data;
 
-        // Truyền các tham số vào view để giữ lại trạng thái tìm kiếm và bộ lọc
-        res.render('product', { 
-            isAuthenticated: req.isAuthenticated, 
-            products: multipleMongooseToObject(products),
-            searchValue: keysearch || '',          // Lưu lại giá trị tìm kiếm
-            selectedBrands: brands ? brands.split(',') : [],  // Giữ lại các brand đã chọn
-            selectedModels: models ? models.split(',') : [],  // Giữ lại các model đã chọn
-            selectedPrice: price || 1000,           // Giữ lại giá trị price (range)
-            selectedSort: sort || '',              // Giữ lại lựa chọn sắp xếp
-    });
-}
-
+        res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products), brands: brands, models: models });
+    }
 
     async showProductDetails(req, res) {
         const productId = req.params.id;
@@ -120,6 +112,23 @@ class ProductController {
         }
     }
 
+
+//     async filterProduct(req, res) {
+//         const query = req.query;
+//         const brands = await productService.getAllBrands();
+//         const models = await productService.getAllModels();
+//         if (!query) {
+//             return;
+//         }
+//         try {
+//             const products = await productService.filterProduct(query);
+//             res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products), brands: brands, models: models });
+//         }
+//         catch (error) {
+//             console.error(error);
+//             res.status(500).send("An error occurred while fetching products");
+//         }
+//     }
 }
 
 module.exports = new ProductController;
