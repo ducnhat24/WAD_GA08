@@ -9,10 +9,12 @@
                 <div class="sidebar p-3 bg-light shadow">
                     <h4 class="text-dark">Search</h4>
                     <div class="mb-3">
-                        <input id="search__bar__product" type="text" class="form-control" placeholder="Search by name">
+                        {{!-- <input id="search__bar__product" type="text" class="form-control" placeholder="Search by name"> --}}
+                        <input id="search__bar__product" type="text" class="form-control" placeholder="Search by name" value="{{searchValue}}">
                         <button onclick="javascript:handleSearch()">+</button>
                     </div>
                     <h5 class="mt-4">Brand</h5>
+
                     {{#each brands}}
                     <div id="brand-filter" class="btn-group-toggle" data-toggle="buttons">
                         <input type="checkbox" id="checkbox_{{this}}">
@@ -21,25 +23,12 @@
                         </label>
                     </div>
                     {{/each}}
-                    {{!-- <div id="brand-filter" class="btn-group-toggle" data-toggle="buttons">
-                        <input type="checkbox" id="checkbox_bmw">
-                        <label class="btn btn-outline-warning" id="brand__bmw" for="checkbox_bmw">
-                            BMW
-                        </label>
-                        <input type="checkbox" id="checkbox_ferrari">
-                        <label class="btn btn-outline-warning" for="checkbox_ferrari">
-                            Ferrari
-                        </label>
-                        <input type="checkbox" id="checkbox_audi">
-                        <label class="btn btn-outline-warning" for="checkbox_audi">
-                            Audi
-                        </label>
-
-                    </div> --}}
-
+                    
                     <h5 class="mt-4">Price</h5>
-                    <input type="range" class="form-range" min="1000" max="50000">
+                    {{!-- <input type="range" class="form-range" min="1000" max="50000"> --}}
+                    <input type="range" class="form-range" min="1000" max="50000" value="{{selectedPrice}}">
                     <h5 class="mt-4">Model</h5>
+
                     {{#each models}}
 
                     <div id="model-filter" class="btn-group-toggle" data-toggle="buttons">
@@ -49,22 +38,8 @@
                         </label>
 
                     </div>
-
                     {{/each}}
 
-                    {{!-- <div id="model-filter" class="btn-group-toggle" data-toggle="buttons">
-                        <input type="checkbox" id="checkbox_sedan">
-                        <label class="btn btn-outline-warning" for="checkbox_sedan">
-                            Sedan
-                        </label>
-                        <input type="checkbox" id="checkbox_suv">
-                        <label class="btn btn-outline-warning" for="checkbox_suv">
-                            SUV
-                        </label>
-                        <input type="checkbox" id="checkbox_van">
-                        <label class="btn btn-outline-warning" for="checkbox_van">
-                            Van
-                        </label>
                     </div> --}}
                     <h5 class="mt-4">Sort</h5>
                     <div id="sort-filter" class="btn-group-toggle" data-toggle="buttons">
@@ -83,7 +58,14 @@
                         <input type="radio" name="sort" id="sort_name_desc">
                         <label class="btn btn-outline-warning" for="sort_name_desc">
                             Name ↓
-                        </label>
+                        </label> --}}
+                        <input type="radio" name="sort" id="sort_price_asc" {{#if (eq selectedSort "sort_price_asc")}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="sort_price_asc">Price ↑</label>
+
+                        <input type="radio" name="sort" id="sort_price_desc" {{#if (eq selectedSort "sort_price_desc")}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="sort_price_desc">Price ↓</label>
+                        <button onclick="javascript:handleFilter()">+</button>
+
                     </div>
                     <button onclick="javascript:handleFilter()">+</button>
                 </div>

@@ -81,6 +81,7 @@ class ProductService {
         }
     }
 
+
     async filterProduct(query) {
         try {
             const brandArray = query.brands ? query.brands.split(",") : [];
