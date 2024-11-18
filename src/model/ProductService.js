@@ -71,7 +71,7 @@ class ProductService {
     async getSameProduct(product) {
         try {
             const { _id, brand, model } = product;
-            const allSameProducts = await Product.find({ brand, model });
+            const allSameProducts = await Product.find({ model });
             const sameProducts = allSameProducts.filter((p) => !p._id.equals(_id));
             return sameProducts;
         }
