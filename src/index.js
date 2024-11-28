@@ -12,6 +12,8 @@ const db = require('./config/index');
 db.connect();
 // Cấu hình Handlebars với extension mặc định
 app.engine("handlebars", engine({
+  layoutsDir: path.join(__dirname, "views/layouts"), // Thư mục chứa layout
+  defaultLayout: "main", // Layout mặc định
   extname: ".handlebars", // Sử dụng phần mở rộng .handlebars
   helpers: {
     eqString: (a, b) => String(a) === String(b),

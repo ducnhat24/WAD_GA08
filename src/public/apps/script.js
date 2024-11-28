@@ -15,6 +15,7 @@ function hideNav() {
 }
 
 function notify(obj) {
+  console.log("Access notify function");
   const main = document.getElementById("notify");
   const icons = {
     success: "fa-check",
@@ -78,14 +79,12 @@ function handleSubmitSignup() {
       return res.json();
     })
     .then((data) => {
-      notify({
-        type: data.status,
-        msg: data.msg,
-      });
       if (data.status === "success") {
-        setTimeout(() => {
-          location.href = "/user/login";
-        }, 3500);
+        localStorage.setItem("notify", JSON.stringify({
+          type: data.status,
+          msg: data.msg,
+        }));
+        location.href = "/user/login";
       }
     })
     .catch((error) => {
@@ -122,15 +121,12 @@ function handleSubmitLogin() {
       return res.json();
     })
     .then((data) => {
-      notify({
-        type: data.status,
-        msg: data.msg,
-      });
-
       if (data.status === "success") {
-        setTimeout(() => {
-          location.href = "/";
-        }, 3500);
+        localStorage.setItem("notify", JSON.stringify({
+          type: data.status,
+          msg: data.msg,
+        }));
+        location.href = "/";
       }
     })
     .catch((error) => {
@@ -153,15 +149,15 @@ function handleLogout() {
       return res.json();
     })
     .then((data) => {
-      notify({
-        type: data.status,
-        msg: data.msg,
-      });
-
+      console.log(data);
       if (data.status === "success") {
-        setTimeout(() => {
-          location.reload(true);
-        }, 3500);
+        localStorage.setItem("notify", JSON.stringify({
+          type: data.status,
+          msg: data.msg,
+        }));
+
+        location.href = "/";
+
       }
     })
     .catch((error) => {
@@ -259,7 +255,6 @@ function handleFilter() {
     })
     .filter(model => model !== null);
 
-  console.log('Selected Models:', selectedModels);
   // Use the `selectedBrands` array for filtering logic
 
   const radiosSort = document.querySelectorAll('#sort-filter input[type="radio"]');
@@ -305,3 +300,11 @@ function handleFilter() {
   location.href = url;
 }
 
+
+const storedNotify = localStorage.getItem("notify");
+if (storedNotify) {
+  const notifyObject = JSON.parse(storedNotify);
+  notify(notifyObject);
+  // Clear the stored notification
+  localStorage.removeItem("notify");
+}
