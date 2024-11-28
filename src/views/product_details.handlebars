@@ -1,5 +1,5 @@
 <!-- Banner Section -->
-<section class="product_banner">
+{{!-- <section class="product_banner">
     <div class=".container-fluid">
         <div class="row banner__temp">
             <div class="col-12 col-md-12 img-container">
@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 
 
 <!-- Car Specifications -->
@@ -19,41 +19,42 @@
     <div class="container">
         <div class="row">
             <div class="product_details col-md-12">
-                <h2>THÔNG SỐ KỸ THUẬT</h2>
+                <h2>SPECIFICATIONS</h2>
             </div>
-        <div class="col-12 col-md-6">
-            <img src="data:image/png;base64,{{product.image}}" alt="{{product.name}} Exterior" class="img-fluid exterior-car__image w-100 w-sm-90 w-md-80 w-lg-70 w-xl-60 w-xxl-50">
-        </div>
+            <div class="col-12 col-md-6">
+                <img src="data:image/png;base64,{{product.image}}" alt="{{product.name}} Exterior"
+                    class="img-fluid exterior-car__image w-100 w-sm-90 w-md-80 w-lg-70 w-xl-60 w-xxl-50">
+            </div>
 
             <div class="col-12 col-md-6">
                 <table class="table specifications-table">
                     <tr>
-                        <td class="detail">Công suất</td>
+                        <td class="detail">Power</td>
                         <td class="info">{{product.power}}</td>
                     </tr>
                     <tr>
-                        <td class="detail">Mô-men xoắn cực đại</td>
+                        <td class="detail">Maximum torque</td>
                         <td class="info">{{product.torque}}</td>
                     </tr>
                     <tr>
-                        <td class="detail">Tăng tốc từ 0 - 100 km/giờ</td>
-                        <td class="info">{{product.acceleration}} giây</td>
+                        <td class="detail">Acceleration (0 - 100 km/h)</td>
+                        <td class="info">{{product.acceleration}}s</td>
                     </tr>
                     <tr>
-                        <td class="detail">Tốc độ tối đa</td>
-                        <td class="info">{{product.topSpeed}} km/giờ</td>
+                        <td class="detail">Maximum speed</td>
+                        <td class="info">{{product.topSpeed}} km/h</td>
                     </tr>
                     <tr>
-                        <td class="detail">Mức tiêu thụ kết hợp</td>
+                        <td class="detail">Combined fuel consumption</td>
                         <td class="info">{{product.combinedConsumption}}</td>
                     </tr>
                     <tr>
-                        <td class="detail">Lượng khí thải CO2</td>
+                        <td class="detail">CO2 emissions</td>
                         <td class="info">{{product.CO2Emissions}}</td>
                     </tr>
                     <tr>
-                        <td class="detail">Giá tiêu chuẩn</td>
-                        <td class="info">{{product.price}}*</td>
+                        <td class="detail">Standard price</td>
+                        <td class="info">{{formatPrice product.price}} VND</td>
                     </tr>
                 </table>
             </div>
@@ -61,71 +62,46 @@
     </div>
 </section>
 
-<section>
-    <div class="container">
-        <div class="row">
-            {{!-- <h2 id="relatedCars">Các mẫu xe tương tự</h2> --}}
-            <!-- Related Cars -->
-            {{!-- <div class="col-lg-12">
-                <hr class="newest-cars-divider">
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
-                    {{#each sameProducts}}
-                    <div class="col">
-                        <div class="card h-100 shadow-sm">
-                            <a href="/product/product_details/{{this.id}}">
-                                <img src="data:image/png;base64,{{this.image}}" class="card-img-top" alt="{{this.name}}">
-                            </a>
-                            <div class="card-body">
-                                <a href="/product/product_details/{{this.id}}">
-                                    <h5 class="card-title">{{this.name}}</h5>
-                                </a>
-                                <p class="card-text text-muted mb-1">{{this.price}}</p>
-                                <p class="text-muted">{{this.description}}</p>
-                            </div>
+
+<div class="sameproduct">
+    <div class="sameproduct__header">
+        <h2 id="relatedCars">SAME PRODUCTS</h2>
+        <hr class="newest-cars-divider">
+    </div>
+    <div class="cars-list">
+
+        {{#each sameProducts}}
+
+        <div class="card">
+            <div class="card_img">
+                <div class="card_img_fake1"></div>
+                <a href="/product/product_details/{{this._id}}">
+                    <img src="data:image/png;base64,{{this.image}}" class="card-img-top" alt="{{this.name}}">
+                </a>
+            </div>
+
+            <div class="card_content">
+                <div class="card_price">
+                    <div class="card_price_fake">
+                        <div class="card_price_value">
+                            {{this.price}}
                         </div>
                     </div>
-                    {{/each}}
                 </div>
-            </div> --}}
-            <div class="col-lg-12">
-                <h2 id="relatedCars">Các mẫu xe tương tự</h2>
-                <hr class="newest-cars-divider">
-                <div class="cars-list">
-                    {{#each sameProducts}}
 
-                    <div class="card">
-                        <div class="card_img">
-                            <div class="card_img_fake1"></div>
-                            <a href="/product/product_details/{{this._id}}">
-                                <img src="data:image/png;base64,{{this.image}}" class="card-img-top"
-                                    alt="{{this.name}}">
-                            </a>
-                        </div>
-
-                        <div class="card_content">
-                            <div class="card_price">
-                                <div class="card_price_fake">
-                                    <div class="card_price_value">
-                                        {{this.price}}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card_detail">
-                                <div class="card_title">
-                                    <a href="/product/product_details/{{this._id}}">
-                                        <h5 class="card-title">{{this.name}}</h5>
-                                </div>
-                                <div class="card_description">
-                                    <p>{{this.description}}</p>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card_detail">
+                    <div class="card_title">
+                        <a href="/product/product_details/{{this._id}}">
+                            <h5 class="card-title">{{this.name}}</h5>
+                        </a>
                     </div>
-
-                    {{/each}}
+                    <div class="card_description">
+                        <p>{{this.description}}</p>
+                    </div>
                 </div>
             </div>
         </div>
+
+        {{/each}}
     </div>
-</section>
+</div>
