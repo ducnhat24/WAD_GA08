@@ -10,11 +10,12 @@ body {
 }
 
 .product-container {
-    margin: 0 !important;
+    margin: 20px 0;
+    width: 100%;
 }
 
 .product-content {
-    width: 100vw;
+    width: 100%;
     padding: 20px;
 }
 
@@ -26,13 +27,21 @@ body {
 }
 
 .featured-cars-section {
-    margin: 0px
+    margin: 0px;
+    width: 100%;
+}
+
+.product__wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .featured-cars {
     margin: 0px;
     display: flex;
     justify-content: space-around;
+    flex: 1;
 }
 
 .cars-list {
@@ -232,12 +241,15 @@ input[type="radio"] {
 
 .sidebar {
     margin: 10px 0px;
+    padding: 20px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 10px;
     box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.5);
-    height: fit-content
+    border-radius: 10px;
+    background-color: #fff;
+    width: 300px;
+    height: fit-content;
 }
 
 .sidebar label {
@@ -277,8 +289,6 @@ label {
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
 }
-
-
 
 
 input[type="range"] {
@@ -350,4 +360,11 @@ input[type="range"]:hover {
 
 #button_filter:hover {
     background-color: #ffcc66;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+    }
+
 }
