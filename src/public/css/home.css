@@ -75,6 +75,7 @@
   width: 100%;
   background: linear-gradient(to right, #ff9800, #000);
   bottom: -10px;
+  margin: 0 auto;
 }
 
 .detail__container {
@@ -87,8 +88,8 @@
 }
 
 .detail__container .detail__item {
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
-  margin: 20px;
+  box-shadow: 0 2px 10px 5px rgba(0, 0, 0, 1);
+  margin: 0 20px;
 }
 
 .detail__item .detail__item__icon {
@@ -119,7 +120,8 @@
 
 /* Discount */
 .img__sale {
-  height: 500px !important;
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .owl-carousel .owl-nav button.owl-prev,
@@ -127,11 +129,12 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: #fff;
+  background: #fffffe;
   border: none;
   padding: 10px;
   border-radius: 50%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: #ff9800 !important;
 }
 
 .owl-carousel .owl-nav button.owl-prev {
@@ -144,7 +147,8 @@
 
 .owl-carousel .owl-dots {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 .owl-carousel .owl-dot {
@@ -156,10 +160,18 @@
   border-radius: 50%;
 }
 
-.img__user {
+/* Feedback */
+.cus__img {
   border-radius: 12px;
-  width: 150px;
-  height: 150px;
+  width: 50%;
+  height: 0;
+  padding-top: 50%;
   background-size: cover;
+  background-position: center;
+  margin: 0 auto;
+  position: relative;
+}
+
+.customer {
   margin: 0 auto;
 }
