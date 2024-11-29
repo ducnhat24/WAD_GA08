@@ -3,14 +3,6 @@ const userService = new UserService();
 
 class UserController {
 
-    showSignup(req, res) {
-        res.render('signup');
-    }
-
-    showLogin(req, res) {
-        res.render('login');
-    }
-
     async addUser(req, res) {
         const { username, email, password } = req.body;
         const status = await userService.addUser({ username, email, password });
@@ -25,7 +17,9 @@ class UserController {
     async login(req, res) {
         const { useraccount, password } = req.body;
         const user = await userService.login({ useraccount, password });
-        res.cookie('accessToken', user.token, { httpOnly: true });
+        console.log(user)
+        res.cookie('accessToken', user.accessToken);
+        res.cookie('refreshToken', user.refreshToken);
         res.json(user);
     }
 
@@ -35,6 +29,14 @@ class UserController {
             status: 'success',
             msg: 'Logged out'
         });
+    }
+
+    async auth(req, res) {
+        return res.json({
+            status: 'success',
+            msg: 'Authenticated'
+        });
+
     }
 }
 

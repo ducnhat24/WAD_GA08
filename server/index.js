@@ -7,7 +7,11 @@ const { route } = require('./routes/index');
 const cookieParser = require('cookie-parser');
 const seed = require('./config/seed');
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true // Required for cookies
+}));
 
 const db = require('./config/index');
 db.connect();

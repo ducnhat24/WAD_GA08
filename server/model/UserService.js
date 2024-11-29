@@ -1,5 +1,19 @@
-const { generateAccessToken } = require('../middleware/JWTAction');
+
+const { generateAccessToken, generateRefreshToken } = require('../middleware/JWTAction.js');
+
 const User = require('../schemas/User');
+const bcrypt = require('bcrypt');
+
+async function hashPassword(password) {
+    try {
+        const saltRounds = 1; // Độ mạnh của thuật toán (tốn tài nguyên hơn khi tăng số này)
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        return hashedPassword;
+    } catch (err) {
+        console.error("Error hashing password:", err);
+        throw err;
+    }
+}
 
 class UserService {
 
@@ -10,52 +24,62 @@ class UserService {
             if (existingUser) {
                 return {
                     status: "error",
-                    msg: "User already exists"
+                    message: "User already exists"
                 };
             }
+            const passwordHash = await hashPassword(password);
+
             const newUser = new User({
                 name: username,
                 email: email,
-                password: password
+                password: passwordHash,
             });
             await newUser.save();
             return {
                 status: "success",
-                msg: "User added successfully"
+                message: "User added successfully"
             };
         }
         catch (error) {
             return {
                 status: "error",
-                msg: "Error adding user"
+                message: "Error adding user"
             };
         }
     }
 
-    async login(user) {
+    async login({ useraccount, password }) {
         try {
-            const { useraccount, password } = user;
-            const existingUser = await User.findOne({ $or: [{ email: useraccount }, { name: useraccount }], password: password });
+            const existingUser = await User.findOne({ $or: [{ email: useraccount }, { name: useraccount }] });
             if (!existingUser) {
                 return {
                     status: "error",
-                    msg: "Invalid credentials"
+                    message: "Invalid credentials"
                 };
             }
-            existingUser.refreshToken = generateRefreshToken({ id: existingUser._id });
+            const checkPassword = await bcrypt.compare(password, existingUser.password);
+            if (checkPassword === false) {
+                return {
+                    status: "error",
+                    message: "Wrong password",
+                };
+            }
             const payload = {
                 id: existingUser._id,
             };
+            const refreshToken = generateRefreshToken(payload);
+            await User.updateOne({ _id: existingUser._id }, { refreshToken: refreshToken });
             return {
                 status: "success",
-                token: generateAccessToken(payload),
+                accessToken: generateAccessToken(payload),
+                refreshToken: refreshToken,
                 msg: "Login successful"
             };
         }
         catch (error) {
             return {
                 status: "error",
-                msg: "Invalid credentials"
+                msg: error.message
             };
         }
     }

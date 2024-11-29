@@ -1,3 +1,4 @@
+
 function showNav() {
   const navBar = document.querySelector(".header__sidebar");
   navBar.style.transform = "translateX(0)";
@@ -51,6 +52,70 @@ function notify(obj) {
   }
 }
 
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+// Check token on load
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("Document loaded");
+  // Fetch authentication status
+  fetch("http://localhost:3000/user/authentication", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + getCookie("accessToken"),
+    },
+    body: JSON.stringify({ refreshToken: getCookie("refreshToken") }),
+    credentials: "include",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Authentication failed");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      if (data.status === "success") {
+        // Token is valid; show logout icon
+        document.querySelector(".header__account").innerHTML = `
+          <div class="header__account__item">
+            <button onclick="handleLogout()">
+              <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+          </div>
+        `;
+      } else {
+        // Token invalid or missing; show login/signup links
+        document.querySelector(".header__account").innerHTML = `
+          <div class="header__account__item">
+            <a href="/signup">Signup</a>
+          </div>
+          <div class="header__account__item">
+            <a href="/login">Login</a>
+          </div>
+        `;
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      // Show login/signup if there's an error
+      document.querySelector(".header__account").innerHTML = `
+        <div class="header__account__item">
+          <a href="/signup">Signup</a>
+        </div>
+        <div class="header__account__item">
+          <a href="/login">Login</a>
+        </div>
+      `;
+    });
+});
+
+
+
 function handleSubmitSignup() {
   console.log("Signup form submitted");
   const username = document.querySelector("#signup__username").value;
@@ -65,7 +130,7 @@ function handleSubmitSignup() {
   }
 
   // Send data to server
-  fetch("/user/signup", {
+  fetch("http://localhost:3000/user/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -84,7 +149,7 @@ function handleSubmitSignup() {
           type: data.status,
           msg: data.msg,
         }));
-        location.href = "/user/login";
+        location.href = "/login";
       }
     })
     .catch((error) => {
@@ -107,11 +172,12 @@ function handleSubmitLogin() {
   }
 
   // Send data to server
-  fetch("/user/login", {
+  fetch("http://localhost:3000/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: 'include',
     body: JSON.stringify({ useraccount, password }),
   })
     .then((res) => {
@@ -121,6 +187,7 @@ function handleSubmitLogin() {
       return res.json();
     })
     .then((data) => {
+      console.log(data);
       if (data.status === "success") {
         localStorage.setItem("notify", JSON.stringify({
           type: data.status,
