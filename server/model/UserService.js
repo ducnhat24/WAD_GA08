@@ -84,19 +84,25 @@ class UserService {
         }
     }
 
-    async getRefreshToken(user) {
-        const existingUser = await User.findOne({ $or: [{ email: user.email }, { name: user.name }] });
-        if (!existingUser) {
+    async logout(refreshToken) {
+        try {
+            const user = await User.findOne({ refreshToken: refreshToken });
+            if (!user) {
+                return {
+                    status: "error",
+                    message: "Invalid refresh token"
+                };
+            }
+
+            user.refreshToken = null;
+            await user.save();
+        }
+        catch (error) {
             return {
                 status: "error",
-                msg: "User not found"
+                message: error.message
             };
         }
-        return {
-            status: "success",
-            token: existingUser.refreshToken,
-            msg: "Refresh token generated"
-        };
     }
 }
 
