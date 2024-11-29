@@ -72,6 +72,22 @@ class ProductController {
             console.log(err.message)
         }
     }
+
+    async showProductDetails(req, res) {
+        try {
+            const id = req.params.id;
+            const value = await ProductService.getProductDetails(id);
+            const sameProducts = await ProductService.getSameProducts(value.data.brand, value.data.model);
+            if (value.status === 'success') {
+                res.render('product_details', { product: value.data, sameProducts: sameProducts });
+            } else {
+                console.log(value.message);
+            }
+        } catch (err) {
+            console.log(err.message)
+        }
+    }
+
 }
 
 module.exports = new ProductController;
