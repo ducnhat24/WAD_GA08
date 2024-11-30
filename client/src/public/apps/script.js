@@ -60,16 +60,19 @@ function getCookie(name) {
 
 // Check token on load
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Document loaded");
+  const accessToken = getCookie("accessToken") || "";
+  const refreshToken = getCookie("refreshToken") || "";
+  console.log("Access token: ", accessToken);
+  console.log("Refresh token: ", refreshToken);
   // Fetch authentication status
   fetch("http://localhost:3000/user/authentication", {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + getCookie("accessToken"),
+      "Authorization": "Bearer " + accessToken,
     },
-    body: JSON.stringify({ refreshToken: getCookie("refreshToken") }),
-    credentials: "include",
+    body: JSON.stringify({ refreshToken: refreshToken }),
   })
     .then((response) => {
       if (!response.ok) {
@@ -176,6 +179,7 @@ function handleSubmitLogin() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+
     },
     credentials: 'include',
     body: JSON.stringify({ useraccount, password }),
@@ -203,10 +207,12 @@ function handleSubmitLogin() {
 
 function handleLogout() {
   console.log("Logout form submitted");
-  fetch("/user/logout", {
+  fetch("http://localhost:3000/user/logout", {
     method: "POST",
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json",
+
     },
   })
     .then((res) => {
@@ -216,7 +222,7 @@ function handleLogout() {
       return res.json();
     })
     .then((data) => {
-      console.log(data);
+      console.log(document.cookie);
       if (data.status === "success") {
         localStorage.setItem("notify", JSON.stringify({
           type: data.status,
