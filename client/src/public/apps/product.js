@@ -11,8 +11,8 @@ function filterProducts() {
         selectedSortBy = document.querySelector('#sort-filter input:checked').id.split('_')[2];
     }
     // Make an AJAX request to get the filtered products
-    fetch(`https://wad-ga-06.vercel.app/filter`, {
-        method: 'POST',
+    fetch(`https://wad-ga-06.vercel.app/product/filter`, {
+        method: 'POST', 
         headers: {
             'Content-Type': 'application/json'
         },
