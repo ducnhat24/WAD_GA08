@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Access token: ", accessToken);
   console.log("Refresh token: ", refreshToken);
   // Fetch authentication status
-  fetch("http://localhost:3000/user/authentication", {
+  fetch("https://wad-ga-06.vercel.app/user/authentication", {
     method: "POST",
     credentials: "include",
     headers: {
@@ -133,7 +133,7 @@ function handleSubmitSignup() {
   }
 
   // Send data to server
-  fetch("http://localhost:3000/user/signup", {
+  fetch("https://wad-ga-06.vercel.app/user/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -175,7 +175,7 @@ function handleSubmitLogin() {
   }
 
   // Send data to server
-  fetch("http://localhost:3000/user/login", {
+  fetch("https://wad-ga-06.vercel.app/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -207,7 +207,7 @@ function handleSubmitLogin() {
 
 function handleLogout() {
   console.log("Logout form submitted");
-  fetch("http://localhost:3000/user/logout", {
+  fetch("https://wad-ga-06.vercel.app/user/logout", {
     method: "POST",
     credentials: 'include',
     headers: {

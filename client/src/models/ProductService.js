@@ -3,7 +3,7 @@
 class ProductService {
     async getProductList() {
         try {
-            const response = await fetch("http://localhost:3000/product/", {
+            const response = await fetch("https://wad-ga-06.vercel.app/product/", {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -22,7 +22,7 @@ class ProductService {
 
     async getBrandList() {
         try {
-            const response = await fetch("http://localhost:3000/product/brands", {
+            const response = await fetch("https://wad-ga-06.vercel.app/product/brands", {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -41,7 +41,7 @@ class ProductService {
 
     async getModelList() {
         try {
-            const response = await fetch("http://localhost:3000/product/models", {
+            const response = await fetch("https://wad-ga-06.vercel.app/product/models", {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -60,7 +60,7 @@ class ProductService {
 
     async getProductFilter(query) {
         const { brands, models, sortby, sorttype } = query;
-        let url = 'http://localhost:3000/product/filter?';
+        let url = 'https://wad-ga-06.vercel.app/product/filter?';
         let flag = false;
         if (brands) {
             url += ("brands=" + brands);
@@ -100,7 +100,7 @@ class ProductService {
 
     async getProductDetails(id) {
         try {
-            const response = await fetch(`http://localhost:3000/product/${id}`, {
+            const response = await fetch(`https://wad-ga-06.vercel.app/product/${id}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -118,7 +118,7 @@ class ProductService {
     }
 
 
-    
+
     // async getSameProduct(product) {
     //     try {
     //         const { _id, brand, model } = product;
@@ -138,7 +138,7 @@ class ProductService {
     async getSameProducts(brand, model) {
         try {
             //fetch all products 
-            const response = await fetch("http://localhost:3000/product/", {
+            const response = await fetch("https://wad-ga-06.vercel.app/product/", {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
