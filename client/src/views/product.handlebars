@@ -1,0 +1,137 @@
+<div class="featured-cars-section">
+    <div class="product-container">
+        <div class="product-content">
+            <h2 class="feature-cars__title display-4 text-dark text-center">Featured <span
+                    class="text-warning">Cars</span></h2>
+            <p class="text-center">Checkout the featured cars</p>
+            <!-- Sidebar -->
+
+            <div class="product__wrapper">
+
+                <div class="sidebar">
+                    <h4 class="text-dark">Search</h4>
+                    <div class="mb-3 d-flex align-items-center">
+                        <input id="search__bar__product" type="text" class="form-control" placeholder="Search by name"
+                            value="{{searchValue}}">
+                        <button id="button_search" onclick="javascript:handleSearch()">
+                            <i class="fas fa-search"></i> <!-- Icon search -->
+                        </button>
+                    </div>
+                    <h5 class="mt-4">Brand</h5>
+                    <div id="brand-filter" class="filter-area btn-group-toggle" data-toggle="buttons">
+                        {{#each brands}}
+                        <input type="checkbox" id="checkbox_{{this}}" {{#if (includes this
+                            ../selectedBrands)}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="checkbox_{{this}}">{{this}}</label>
+                        {{/each}}
+
+                        {{!-- <input type="checkbox" id="checkbox_bmw" {{#if (includes "bmw"
+                            selectedBrands)}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="checkbox_bmw">BMW</label>
+
+                        <input type="checkbox" id="checkbox_ferrari" {{#if (includes "ferrari"
+                            selectedBrands)}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="checkbox_ferrari">Ferrari</label>
+
+                        <input type="checkbox" id="checkbox_audi" {{#if (includes "audi"
+                            selectedBrands)}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="checkbox_audi">Audi</label> --}}
+                    </div>
+
+                    <h5 class="mt-4">Price</h5>
+                    <input type="range" class="form-range" min="1000" max="50000" value="{{selectedPrice}}">
+
+                    <h5 class="mt-4">Model</h5>
+                    <div id="model-filter" class="filter-area btn-group-toggle" data-toggle="buttons">
+                        {{#each models}}
+
+                        <input type="checkbox" id="checkbox_{{this}}" {{#if (includes this
+                            ../selectedModels)}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="checkbox_{{this}}">{{this}}</label>
+                        {{/each}}
+
+                        {{!-- <input type="checkbox" id="checkbox_sedan" {{#if (includes "sedan"
+                            selectedBrands)}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="checkbox_sedan">Sedan</label>
+
+                        <input type="checkbox" id="checkbox_suv" {{#if (includes "suv" selectedBrands)}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="checkbox_suv">SUV</label>
+
+                        <input type="checkbox" id="checkbox_van" {{#if (includes "van" selectedBrands)}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="checkbox_van">Van</label> --}}
+                    </div>
+                    <h5 class="mt-4">Sort</h5>
+                    <div id="sort-filter" class="filter-area btn-group-toggle" data-toggle="buttons">
+                        <input type="radio" name="sort" id="sort_price_asc" {{#if (eqString selectedSort "price_asc"
+                            )}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="sort_price_asc">Price ↑</label>
+
+                        <input type="radio" name="sort" id="sort_price_desc" {{#if (eqString selectedSort "price_desc"
+                            )}}checked{{/if}}>
+                        <label class="btn btn-outline-warning" for="sort_price_desc">Price ↓</label>
+
+                    </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <button id="button_filter" class="btn btn-warning" onclick="javascript:handleFilter()">
+                            <i class="fas fa-filter"></i> <!-- Icon filter -->
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Featured Cars -->
+                <div class="featured-cars">
+
+                    <hr class="newest-cars-divider">
+                    <div class="cars-list">
+                        {{#each products}}
+
+                        <div class="card">
+                            {{!-- <a href="/product/product_details/{{this._id}}">
+                                <img src="data:image/png;base64,{{this.image}}" class="card-img-top"
+                                    alt="{{this.name}}">    
+                            </a>
+                            <div class="card-body">
+                                <a href="/product/product_details/{{this._id}}">
+                                    <h5 class="card-title">{{this.name}}</h5>
+                                </a>
+                                <p class="card-text text-muted mb-1">{{this.price}}</p>
+                                <p class="text-muted">{{this.description}}</p>
+                            </div> --}}
+
+                            <div class="card_img">
+                                <div class="card_img_fake1"></div>
+                                <a href="/product/{{this._id}}">
+                                    <img src="data:image/png;base64,{{this.image}}" class="card-img-top"
+                                        alt="{{this.name}}">
+                                </a>
+                            </div>
+
+                            <div class="card_content">
+                                <div class="card_price">
+                                    <div class="card_price_fake">
+                                        <div class="card_price_value">
+                                            {{this.price}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card_detail">
+                                    <div class="card_title">
+                                        <a href="/product/{{this._id}}">
+                                            <h5 class="card-title">{{this.name}}</h5>
+                                        </a>
+                                    </div>
+                                    <div class="card_description">
+                                        <p>{{this.description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
