@@ -94,7 +94,7 @@ class UserService {
                 };
             }
 
-            user.refreshToken = null;
+            user.refreshToken = "";
             await user.save();
         }
         catch (error) {

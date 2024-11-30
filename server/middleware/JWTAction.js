@@ -15,10 +15,7 @@ function generateAccessToken(payload) {
 }
 
 function generateRefreshToken(payload) {
-    console.log(payload);
     try {
-        console.log("access tokennnnn");
-
         const token = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: '5h' });
         return token;
     }
@@ -28,24 +25,25 @@ function generateRefreshToken(payload) {
 }
 
 function renewAccessToken(req, res) {
-    const refreshToken = res.body.refreshToken;
-
+    const isRefreshToken = !req.body.refreshToken;
+    if (isRefreshToken) {
+        return res.json({ valid: false, msg: "No refresh token" });
+    }
+    const refreshToken = req.body.refreshToken;
+    console.log(refreshToken);
     try {
-        if (refreshToken == null) {
-            return res.json({ valid: false, msg: "No refresh token" });
-        }
-
-        jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
+        jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, async (err, user) => {
             if (err) {
                 return res.json({ valid: false, msg: "Invalid refresh token" });
             }
-
-            const userData = User.findOne({ _id: user.id });
+            const userData = await User.findOne({ _id: user.id });
+            console.log(userData);
+            console.log(userData.refreshToken);
             if (!userData || userData.refreshToken !== refreshToken) {
                 return res.status(403).json({ status: 'error', message: 'Refresh token is invalid' });
             }
             const accessToken = generateAccessToken({ id: userData._id });
-            res.cookie = ('token', accessToken, { httpOnly: true });
+            res.cookie('accessToken', accessToken);
 
             return res.json({
                 status: 'success',
@@ -59,12 +57,12 @@ function renewAccessToken(req, res) {
 }
 
 function verifyToken(req, res, next) {
-    console.log("verify token");
+    // console.log(req.cookies);
     try {
 
         const token = req.cookies.accessToken;
-        console.log(token);
         if (token == null) {
+            console.log('no token');
             return renewAccessToken(req, res);
         }
 
