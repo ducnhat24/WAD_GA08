@@ -114,23 +114,52 @@ class ProductController {
     //         res.status(500).send("An error occurred while fetching products");
     //     }
     // }
-    async filterProduct(req, res) {
-        const query = req.query;  // Lấy các tham số từ query
-        // const brands = await productService.getAllBrands();
-        // const models = await productService.getAllModels();
+    // async filterProduct(req, res) {
+    //     const query = req.query;  // Lấy các tham số từ query
+    //     // const brands = await productService.getAllBrands();
+    //     // const models = await productService.getAllModels();
 
+    //     try {
+    //         const products = await productService.filterProduct(query);
+    //         const sort = query.sortby + "_" + query.sorttype;
+    //         // Trả lại các tham số để giữ lại trạng thái bộ lọc
+    //         // res.render('product', {
+    //         //     products: multipleMongooseToObject(products),
+    //         //     searchValue: '',  // Có thể để rỗng nếu không có tìm kiếm
+    //         //     selectedBrands: query.brands ? query.brands.split(',') : [],
+    //         //     selectedModels: query.models ? query.models.split(',') : [],
+    //         //     selectedSort: sort || '',
+    //         // });
+    //         res.json(products)
+    //     } catch (error) {
+    //         console.error(error);
+    //         res.status(500).send("An error occurred while fetching products");
+    //     }
+    // }
+
+    async filterProduct(req, res) {
+        console.log("Filter products");
         try {
+            console.log(req.body);
+            const { page, limit, brands, models, sorttype, sortby } = req.body;
+            const query = {
+                brands: brands ? brands.split(',') : [],
+                models: models ? models.split(',') : [],
+                sortType: sorttype,
+                sortBy: sortby
+            };
+    
             const products = await productService.filterProduct(query);
-            const sort = query.sortby + "_" + query.sorttype;
-            // Trả lại các tham số để giữ lại trạng thái bộ lọc
-            // res.render('product', {
-            //     products: multipleMongooseToObject(products),
-            //     searchValue: '',  // Có thể để rỗng nếu không có tìm kiếm
-            //     selectedBrands: query.brands ? query.brands.split(',') : [],
-            //     selectedModels: query.models ? query.models.split(',') : [],
-            //     selectedSort: sort || '',
-            // });
-            res.json(products)
+            const totalPages = Math.ceil(products.data.length / limit);
+            const startIndex = (page - 1) * limit;
+            const endIndex = page * limit;
+            const productToDisplay = products.data.slice(startIndex, endIndex);
+    
+            res.json({
+                currentPage: page,
+                totalPages: totalPages,
+                item: productToDisplay,
+            });
         } catch (error) {
             console.error(error);
             res.status(500).send("An error occurred while fetching products");
@@ -154,6 +183,35 @@ class ProductController {
     //             res.status(500).send("An error occurred while fetching products");
     //         }
     //     }
+
+    async getSomeProduct(req, res) {
+        console.log("new try");
+        try {
+            console.log(req.body);
+            const page = parseInt(req.body.page) || 1;
+            const limit = parseInt(req.body.limit) || 1;
+    
+            const startIndex = (page - 1) * limit;
+            const endIndex = page * limit;
+            console.log('Start Index:', startIndex, 'End Index:', endIndex);
+    
+            const allProducts = await productService.getAllProducts();
+    
+            const productToDisplay = allProducts.data.slice(startIndex, endIndex);
+            console.log('current page:', page);
+            console.log('total pages:', Math.ceil(allProducts.data.length / limit));
+    
+            res.json({
+                currentPage: page,
+                totalPages: Math.ceil(allProducts.data.length / limit),
+                item: productToDisplay,
+            });
+    
+        } catch (error) {
+            console.error(error);
+            res.status(500).send("An error occurred while fetching products");
+        }
+    }
 }
 
 module.exports = new ProductController;

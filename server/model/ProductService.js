@@ -150,30 +150,77 @@ class ProductService {
         }
     }
 
+    // async filterProduct(query) {
+    //     try {
+    //         console.log(query)
+    //         const brandArray = query.brands ? query.brands.split(",") : [];
+    //         const modelArray = query.models ? query.models.split(",") : [];
+    //         const sortBy = query.sortby;
+    //         const sortType = query.sorttype;
+    //         let products = await Product.find();
+    //         // console.log("-----------------------")
+    //         // products.map((product) => {
+    //         //     console.log(product._id + ": " + product.price)
+    //         // })
+    //         // console.log("-----------------------")
+    //         if (products) {
+    //             if (brandArray.length > 0) {
+    //                 products = products.filter((product) => brandArray.includes(product.brand));
+    //             }
+
+    //             if (modelArray.length > 0) {
+    //                 products = products.filter((product) => modelArray.includes(product.model));
+    //             }
+
+    //             if (sortBy && sortType) {
+    //                 // console.log("Access sortBy sortType")
+    //                 if (sortType === "asc") {
+    //                     products.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : -1);
+    //                 } else {
+    //                     products.sort((a, b) => (a[sortBy] < b[sortBy]) ? 1 : -1);
+    //                 }
+    //             }
+    //             return {
+    //                 status: "success",
+    //                 message: "Filter successfully",
+    //                 data: products,
+    //             }
+
+    //         } else {
+    //             return {
+    //                 status: "error",
+    //                 message: "Unavailable product",
+    //             }
+    //         }
+    //     } catch (error) {
+    //         return {
+    //             status: "error",
+    //             message: error.message,
+    //         }
+
+    //     }
+    // }
+
     async filterProduct(query) {
         try {
-            console.log(query)
-            const brandArray = query.brands ? query.brands.split(",") : [];
-            const modelArray = query.models ? query.models.split(",") : [];
-            const sortBy = query.sortby;
-            const sortType = query.sorttype;
+            console.log(query);
+            const brandArray = query.brands;
+            const modelArray = query.models;
+            const sortBy = query.sortBy;
+            const sortType = query.sortType;
+
             let products = await Product.find();
-            // console.log("-----------------------")
-            // products.map((product) => {
-            //     console.log(product._id + ": " + product.price)
-            // })
-            // console.log("-----------------------")
+    
             if (products) {
                 if (brandArray.length > 0) {
                     products = products.filter((product) => brandArray.includes(product.brand));
                 }
-
+    
                 if (modelArray.length > 0) {
                     products = products.filter((product) => modelArray.includes(product.model));
                 }
-
+    
                 if (sortBy && sortType) {
-                    // console.log("Access sortBy sortType")
                     if (sortType === "asc") {
                         products.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : -1);
                     } else {
@@ -185,7 +232,6 @@ class ProductService {
                     message: "Filter successfully",
                     data: products,
                 }
-
             } else {
                 return {
                     status: "error",
@@ -197,7 +243,6 @@ class ProductService {
                 status: "error",
                 message: error.message,
             }
-
         }
     }
 }

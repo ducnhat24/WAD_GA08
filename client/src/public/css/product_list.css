@@ -132,6 +132,10 @@ body {
     align-items: center;
 }
 
+#checkout-product-text{
+    margin-bottom: 60px;
+}
+
 .card_content .card_price .card_price_fake .card_price_value {
     font-size: 14px;
     font-weight: 700;
@@ -330,7 +334,7 @@ input[type="range"]:hover {
     margin-right: 8px;
 }
 
-#button_search {
+.custom_button {
     background-color: #ffa500;
     color: white;
     border: none;
@@ -338,7 +342,7 @@ input[type="range"]:hover {
     border-radius: 8px;
 }
 
-#button_search:hover {
+.custom_button:hover {
     background-color: #ffcc66;
 }
 
@@ -367,4 +371,24 @@ input[type="range"]:hover {
         width: 100%;
     }
 
+}
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+}
+
+#page-info {
+    margin: 0px 10px;   
+}
+
+#product-page{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    
 }
