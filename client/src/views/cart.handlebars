@@ -1,0 +1,77 @@
+<div class="cart">
+    <div class="cart__body">
+        {{#each products}}
+        <div class="cart__item">
+            <div class="cart__left">
+                <img src="data:image/png;base64,{{this.image}}" class="card-img-top" alt="{{this.name}}">
+            </div>
+
+            <div class="card__right">
+                <div class="cart__item__title">
+                    <div class="cart__product__name">
+                        <span>{{this.name}}</span>
+                    </div>
+                    <div class="cart__product__description">
+                        <span>{{this.description}}</span>
+                    </div>
+                </div>
+
+                <div class="card__item__footer">
+                    <div class="card__product__price">
+                        <span>${{this.price}}</span>
+                    </div>
+
+                    <div class="cart__item__btn">
+                        <button>-</button>
+                        <span>7</span>
+                        <button>+</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+    <div class="cart__detail">
+        <div class="cart__customer__detail">
+            <div class="cart__customer__detail__title">
+                <span>Customer Details</span>
+            </div>
+            <div class="cart__customer__detail__content">
+                <div class="cart__customer__detail__item">
+                    <span>Name:</span>
+                    <span>Bui Dinh Gia Vy</span>
+                </div>
+                <div class="cart__customer__detail__item">
+                    <span>Phone:</span>
+                    <span>0123456789</span>
+                </div>
+                <div class="cart__customer__detail__item">
+                    <span>Address:</span>
+                    <span>9 St, Cu Chi district, Ho Chi Minh city</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart__products__detail">
+            <div class="cart__products__detail__title">
+                <span>Products Details</span>
+            </div>
+            <div class="cart__products__detail__content">
+                <div class="cart__products__detail__item">
+                    <span>Subtotal:</span>
+                    <span>$100</span>
+                </div>
+                <div class="cart__products__detail__item">
+                    <span>Shipping:</span>
+                    <span>$10</span>
+                </div>
+                <div class="cart__products__detail__item">
+                    <span>Total:</span>
+                    <span>$110</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

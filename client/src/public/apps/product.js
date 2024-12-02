@@ -1,3 +1,5 @@
+// const url = "http://localhost:3000";
+
 let currentPage = 1;  // Initial page number
 let limit = 5;  // Number of products per page
 
@@ -11,8 +13,8 @@ function filterProducts() {
         selectedSortBy = document.querySelector('#sort-filter input:checked').id.split('_')[2];
     }
     // Make an AJAX request to get the filtered products
-    fetch(`https://wad-ga-06.vercel.app/product/filter`, {
-        method: 'POST', 
+    fetch(url + "/product/filter", {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -60,7 +62,7 @@ function filterProducts() {
 function loadProducts() {
     console.log("loadProducts");
     // Make an AJAX request to get the products for the current page
-    fetch(`https://wad-ga-06.vercel.app/product/`, {
+    fetch(url + '/product/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

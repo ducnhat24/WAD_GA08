@@ -1,3 +1,4 @@
+const url = "http://localhost:3000";
 
 function showNav() {
   const navBar = document.querySelector(".header__sidebar");
@@ -65,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Access token: ", accessToken);
   console.log("Refresh token: ", refreshToken);
   // Fetch authentication status
-  fetch("https://wad-ga-06.vercel.app/user/authentication", {
+  fetch(url + "/user/authentication", {
     method: "POST",
     credentials: "include",
     headers: {
@@ -133,7 +134,7 @@ function handleSubmitSignup() {
   }
 
   // Send data to server
-  fetch("https://wad-ga-06.vercel.app/user/signup", {
+  fetch(url + "user/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -175,7 +176,7 @@ function handleSubmitLogin() {
   }
 
   // Send data to server
-  fetch("https://wad-ga-06.vercel.app/user/login", {
+  fetch(url + "/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -207,7 +208,7 @@ function handleSubmitLogin() {
 
 function handleLogout() {
   console.log("Logout form submitted");
-  fetch("https://wad-ga-06.vercel.app/user/logout", {
+  fetch(url + "/user/logout", {
     method: "POST",
     credentials: 'include',
     headers: {
@@ -342,37 +343,37 @@ function handleFilter() {
     console.log('Selected Sort:', sortTypeQuery, sortByQuery);
   }
 
-  let url = "/product"
-  console.log(url);
+  let endpoint = "/product"
+  console.log(endpoint);
   if (selectedBrands.length > 0 || selectedModels.length > 0 || selectedSort) {
-    url += "/filter?";
+    endpoint += "/filter?";
   }
 
   let flag = false;
   if (selectedBrands.length > 0) {
     flag = true;
-    url += "brands=" + selectedBrands.join(",");
+    endpoint += "brands=" + selectedBrands.join(",");
   }
 
   if (flag) {
-    url += "&";
+    endpoint += "&";
   }
 
   if (selectedModels.length > 0) {
     flag = true;
-    url += "models=" + selectedModels.join(",");
+    endpoint += "models=" + selectedModels.join(",");
   }
 
   if (flag) {
-    url += "&";
+    endpoint += "&";
   }
 
   if (selectedSort) {
-    url += ("sortby=" + selectedSort.id.split('_')[1] + "&sorttype=" + selectedSort.id.split('_')[2]);
+    endpoint += ("sortby=" + selectedSort.id.split('_')[1] + "&sorttype=" + selectedSort.id.split('_')[2]);
   }
 
-  console.log(url);
-  location.href = url;
+  console.log(endpoint);
+  location.href = endpoint;
 }
 
 
