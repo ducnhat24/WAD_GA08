@@ -3,6 +3,10 @@ const ProductService = require("../models/ProductService")
 class ProductController {
     async showProduct(req, res) {
         try {
+            console.log("---------------------------------");
+            console.log("New request to show product");
+            const time1 = new Date().getTime();
+
             let productItems = {
                 products: null,
                 brands: null,
@@ -28,8 +32,14 @@ class ProductController {
             } else {
                 console.log(valueModels.message);
             }
+            const time2 = new Date().getTime();
+            console.log("Time to fetch data from db:", time2 - time1);
 
+            
             res.render('product', { products: productItems.products, brands: productItems.brands, models: productItems.models })
+            const time3 = new Date().getTime();
+            console.log("Time to render:", time3 - time2);
+            console.log("---------------------------------");
         }
         catch (err) {
             console.log(err.message)

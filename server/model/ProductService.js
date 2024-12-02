@@ -203,6 +203,7 @@ class ProductService {
 
     async filterProduct(query) {
         try {
+            console.log("Product Service:");
             console.log(query);
             const brandArray = query.brands;
             const modelArray = query.models;

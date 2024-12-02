@@ -1,178 +1,169 @@
-let currentPage = 1;  // Initial page number
-let limit = 5;  // Number of products per page
+let currentPage = 1; // Current page number
+let limit = 5;       // Items per page
+let totalPages = 0;  // Total number of pages
+const cache = new Map(); // Cache to store prefetched pages
 
-function filterProducts() {
-    // Get the selected brands, models, and sort options
-    const selectedBrands = Array.from(document.querySelectorAll('#brand-filter input:checked')).map(input => input.id.split('_')[1]);
-    const selectedModels = Array.from(document.querySelectorAll('#model-filter input:checked')).map(input => input.id.split('_')[1]);
-    var selectedSortBy = "asc";
-    console.log(selectedSortBy);
-    if (document.querySelector('#sort-filter input:checked') != null) {
-        selectedSortBy = document.querySelector('#sort-filter input:checked').id.split('_')[2];
-    }
-    // Make an AJAX request to get the filtered products
-    fetch(`https://wad-ga-06.vercel.app/product/filter`, {
-        method: 'POST', 
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            page: currentPage,
-            limit: limit,
-            brands: selectedBrands.join(','),
-            models: selectedModels.join(','),
-            sorttype: "price",
-            sortby: selectedSortBy,
-        })
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Data received:", data);  // Log the received data
-            // Extract current page, total pages, and items from the response
-            const { currentPage, totalPages, item } = data;
+// Prefetch next page data
+function prefetchPage(page) {
+    if (cache.has(page) || page > totalPages || page < 1) return;
 
-            // Update the products displayed on the page
-            const itemsContainer = document.getElementById('items-container');
-            itemsContainer.innerHTML = '';  // Clear the current content
-
-            // Loop through the items and display each product
-            item.forEach(product => {
-                const productElement = createProductElement(product);
-                itemsContainer.appendChild(productElement);
-            });
-
-            // Update the page info and pagination buttons
-            document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
-
-            // Enable/disable the pagination buttons based on the current page
-            document.getElementById('prev-btn').disabled = currentPage === 1;
-            document.getElementById('next-btn').disabled = currentPage === totalPages;
-
-
-
-        })
-        .catch(error => {
-            console.error('Error filtering products:', error);
-        });
-}
-
-// Function to update the product list and pagination controls
-function loadProducts() {
-    console.log("loadProducts");
-    // Make an AJAX request to get the products for the current page
-    fetch(`https://wad-ga-06.vercel.app/product/`, {
+    fetch(`http://localhost:3000/product/`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            page: currentPage,
-            limit: limit
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page, limit })
     })
         .then(response => response.json())
         .then(data => {
-            console.log("Data received:", data);  // Log the received data
-            // Extract current page, total pages, and items from the response
-            const { currentPage, totalPages, item } = data;
-
-            // Update the products displayed on the page
-            const itemsContainer = document.getElementById('items-container');
-            itemsContainer.innerHTML = '';  // Clear the current content
-
-            // Loop through the items and display each product
-            item.forEach(product => {
-                const productElement = createProductElement(product);
-                itemsContainer.appendChild(productElement);
-            });
-
-            // Update the page info and pagination buttons
-            document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
-
-            // Enable/disable the pagination buttons based on the current page
-            document.getElementById('prev-btn').disabled = currentPage === 1;
-            document.getElementById('next-btn').disabled = currentPage === totalPages;
+            cache.set(page, data.item);
         })
-        .catch(error => {
-            console.error('Error loading products:', error);
-        });
+        .catch(error => console.error(`Error prefetching page ${page}:`, error));
 }
-// Function to create the product card HTML dynamically
+
+// Load products for the current page
+function loadProducts() {
+    if (cache.has(currentPage)) {
+        renderProducts(cache.get(currentPage));
+        return;
+    }
+    showSpinner(); // Hiển thị spinner
+    fetch(`http://localhost:3000/product/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page: currentPage, limit })
+    })
+        .then(response => response.json())
+        .then(data => {
+            hideSpinner(); // Ẩn spinner
+            const { totalPages: total, item } = data;
+            totalPages = total; // Update total pages
+            cache.set(currentPage, item); // Cache the current page
+            renderProducts(item); // Render products
+            prefetchPage(currentPage + 1); // Prefetch the next page
+        })
+        .catch(error => console.error('Error loading products:', error));
+}
+
+
+// Render products on the page
+function renderProducts(products) {
+    const itemsContainer = document.getElementById('items-container');
+    itemsContainer.innerHTML = ''; // Clear current items
+
+    const fragment = document.createDocumentFragment();
+    products.forEach(product => {
+        const productElement = createProductElement(product);
+        fragment.appendChild(productElement);
+    });
+    itemsContainer.appendChild(fragment); // Append all at once
+
+    document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
+    document.getElementById('prev-btn').disabled = currentPage === 1;
+    document.getElementById('next-btn').disabled = currentPage === totalPages;
+}
+
+// Create product card
 function createProductElement(product) {
     const card = document.createElement('div');
     card.classList.add('card');
-
-    // Product image and link
-    const imageContainer = document.createElement('div');
-    imageContainer.classList.add('card_img');
-    const imageFake = document.createElement('div');
-    imageFake.classList.add('card_img_fake1');
-    imageContainer.appendChild(imageFake);
-
-    const imageLink = document.createElement('a');
-    imageLink.href = `/product/${product._id}`;
-    const img = document.createElement('img');
-    img.src = `data:image/png;base64,${product.image}`;
-    img.classList.add('card-img-top');
-    img.alt = product.name;
-    imageLink.appendChild(img);
-    imageContainer.appendChild(imageLink);
-    card.appendChild(imageContainer);
-
-    // Product details (price, name, description)
-    const content = document.createElement('div');
-    content.classList.add('card_content');
-
-    const priceContainer = document.createElement('div');
-    priceContainer.classList.add('card_price');
-    const priceFake = document.createElement('div');
-    priceFake.classList.add('card_price_fake');
-    const priceValue = document.createElement('div');
-    priceValue.classList.add('card_price_value');
-    priceValue.textContent = product.price;
-    priceFake.appendChild(priceValue);
-    priceContainer.appendChild(priceFake);
-    content.appendChild(priceContainer);
-
-    const details = document.createElement('div');
-    details.classList.add('card_detail');
-
-    const titleContainer = document.createElement('div');
-    titleContainer.classList.add('card_title');
-    const titleLink = document.createElement('a');
-    titleLink.href = `/product/${product._id}`;
-    const title = document.createElement('h5');
-    title.classList.add('card-title');
-    title.textContent = product.name;
-    titleLink.appendChild(title);
-    titleContainer.appendChild(titleLink);
-    details.appendChild(titleContainer);
-
-    const description = document.createElement('div');
-    description.classList.add('card_description');
-    const descriptionText = document.createElement('p');
-    descriptionText.textContent = product.description;
-    description.appendChild(descriptionText);
-    details.appendChild(description);
-
-    content.appendChild(details);
-    card.appendChild(content);
-
+    card.innerHTML = `
+        <div class="card_img">
+            <a href="/product/${product._id}">
+                <img src="data:image/png;base64,${product.image}" alt="${product.name}" class="card-img-top">
+            </a>
+        </div>
+        <div class="card_content">
+            <div class="card_price">
+                <div class="card_price_fake">
+                    <div class="card_price_value">${product.price}</div>
+                </div>
+            </div>
+            <div class="card_detail">
+                <div class="card_title">
+                    <a href="/product/${product._id}">
+                        <h5 class="card-title">${product.name}</h5>
+                    </a>
+                </div>
+                <div class="card_description">
+                    <p>${product.description}</p>
+                </div>
+            </div>
+        </div>`;
     return card;
 }
 
-// Set up event listeners for the pagination buttons
+// Event listeners for pagination buttons
 document.getElementById('prev-btn').addEventListener('click', () => {
     if (currentPage > 1) {
         currentPage--;
         loadProducts();
+        prefetchPage(currentPage - 1); // Prefetch previous page
     }
 });
 
 document.getElementById('next-btn').addEventListener('click', () => {
-    currentPage++;
-    loadProducts();
+    if (currentPage < totalPages) {
+        currentPage++;
+        loadProducts();
+        prefetchPage(currentPage + 1); // Prefetch next page
+    }
 });
 
-// Initially load the first page of products
+function filterProducts() {
+    // Get filter values from the UI
+    // const searchValue = document.getElementById('search__bar__product').value.trim();
+    const selectedBrands = Array.from(
+        document.querySelectorAll('#brand-filter input[type="checkbox"]:checked')
+    ).map(input => input.id.replace('checkbox_', ''));
+
+    const selectedModels = Array.from(
+        document.querySelectorAll('#model-filter input[type="checkbox"]:checked')
+    ).map(input => input.id.replace('checkbox_', ''));
+
+    // const selectedPrice = document.getElementById('price-filter').value;
+
+    const selectedSort = document.querySelector('#sort-filter input[type="radio"]:checked')?.id || '';
+
+    const filterPayload = {
+        // search: searchValue,
+        page: currentPage,
+        limit: limit,
+        brands: selectedBrands, // Array
+        models: selectedModels, // Array
+        // price: selectedPrice, // Số hoặc chuỗi nếu backend cần
+        sortType: selectedSort.includes('asc') ? 'asc' : 'desc', // Phân tích từ id
+        sortBy: 'price', // Hoặc một trường cụ thể
+
+    };
+
+    console.log(filterPayload);
+    showSpinner();
+    // Fetch filtered products
+    fetch('http://localhost:3000/product/filter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(filterPayload)
+    })
+        .then(response => response.json())
+        .then(data => {
+            hideSpinner();
+            const { totalPages: total, item } = data;
+            totalPages = total; // Update total pages
+            cache.clear(); // Clear the cache as filters have changed
+            cache.set(currentPage, item); // Cache the new filtered results
+            renderProducts(item); // Render filtered products
+            prefetchPage(currentPage + 1); // Prefetch next page for filtered results
+        })
+        .catch(error => console.error('Error filtering products:', error));
+}
+
+function showSpinner() {
+    document.getElementById('loading-spinner').classList.remove('hidden');
+}
+
+function hideSpinner() {
+    document.getElementById('loading-spinner').classList.add('hidden');
+}
+
+
+// Initial load
 loadProducts();
