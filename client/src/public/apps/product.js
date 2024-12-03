@@ -11,6 +11,7 @@ function prefetchPage(page) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page, limit })
+
     })
         .then(response => response.json())
         .then(data => {
