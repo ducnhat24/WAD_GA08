@@ -12,12 +12,12 @@ class ProductController {
                 brands: null,
                 models: null,
             }
-            const valueProducts = await ProductService.getProductList();
-            if (valueProducts.status === 'success') {
-                productItems.products = valueProducts.data;
-            } else {
-                console.log(valueProducts.message);
-            }
+            // const valueProducts = await ProductService.getProductList();
+            // if (valueProducts.status === 'success') {
+            //     productItems.products = valueProducts.data;
+            // } else {
+            //     console.log(valueProducts.message);
+            // }
 
             const valueBrands = await ProductService.getBrandList();
             if (valueBrands.status === 'success') {
@@ -35,8 +35,8 @@ class ProductController {
             const time2 = new Date().getTime();
             console.log("Time to fetch data from db:", time2 - time1);
 
-            
-            res.render('product', { products: productItems.products, brands: productItems.brands, models: productItems.models })
+
+            res.render('product', { brands: productItems.brands, models: productItems.models })
             const time3 = new Date().getTime();
             console.log("Time to render:", time3 - time2);
             console.log("---------------------------------");
@@ -87,9 +87,9 @@ class ProductController {
         try {
             const id = req.params.id;
             const value = await ProductService.getProductDetails(id);
-            const sameProducts = await ProductService.getSameProducts(value.data.brand, value.data.model);
+            // const sameProducts = await ProductService.getSameProducts(value.data.brand, value.data.model);
             if (value.status === 'success') {
-                res.render('product_details', { product: value.data, sameProducts: sameProducts });
+                res.render('product_details', { product: value.data });
             } else {
                 console.log(value.message);
             }
