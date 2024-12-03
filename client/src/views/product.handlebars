@@ -91,7 +91,11 @@
                             <button class="custom_button" id="next-btn">Next</button>
                         </div>
                         <div class="cars-list">
-                            <div id="items-container" class="cars-list"></div>
+                            <div id="loading-spinner" class="spinner hidden">
+                                <div class="spinner-inner"></div>
+                            </div>
+                            <div id="items-container" class="cars-list">
+                            </div>
 
 
                             {{!-- {{#each products}}
@@ -274,3 +278,4 @@
     loadProducts();
 </script>
 --}}
+

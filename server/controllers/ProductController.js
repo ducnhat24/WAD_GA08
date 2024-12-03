@@ -137,16 +137,93 @@ class ProductController {
     //     }
     // }
 
+    // async filterProduct(req, res) {
+    //     console.log("Filter products");
+    //     try {
+    //         console.log(req.body);
+    //         const { page, limit, brands, models, sorttype, sortby } = req.body;
+    //         const query = {
+    //             brands: brands ? brands.split(',') : [],
+    //             models: models ? models.split(',') : [],
+    //             sortType: sorttype,
+    //             sortBy: sortby
+    //         };
+    
+    //         const products = await productService.filterProduct(query);
+    //         const totalPages = Math.ceil(products.data.length / limit);
+    //         const startIndex = (page - 1) * limit;
+    //         const endIndex = page * limit;
+    //         const productToDisplay = products.data.slice(startIndex, endIndex);
+    
+    //         res.json({
+    //             currentPage: page,
+    //             totalPages: totalPages,
+    //             item: productToDisplay,
+    //         });
+    //     } catch (error) {
+    //         console.error(error);
+    //         res.status(500).send("An error occurred while fetching products");
+    //     }
+    // }
+
+    // async filterProduct(req, res) {
+    //     console.log("Filter products");
+    //     try {
+    //         console.log("Request body:", req.body);
+
+    //         // Destructure and validate request parameters
+    //         const { page = 1, limit = 10, brands = [], models = [], sortType = "asc", sortBy = "price" } = req.body;
+
+    //         // Validate pagination
+    //         const validPage = Math.max(1, parseInt(page, 10));
+    //         const validLimit = Math.max(1, parseInt(limit, 10));
+
+    //         // Construct query
+    //         const query = {};
+    //         if (brands.length > 0) query.brand = { $in: brands };
+    //         if (models.length > 0) query.model = { $in: models };
+
+    //         // Construct sorting object
+    //         const sort = {};
+    //         if (sortBy && (sortType === "asc" || sortType === "desc")) {
+    //             sort[sortBy] = sortType === "asc" ? 1 : -1;
+    //         }
+
+    //         // Fetch products from service
+    //         const products = await productService.filterProduct(query, sort);
+
+    //         // Pagination logic
+    //         // const totalItems = products.data.length;
+    //         const totalItems = Array.isArray(products.data) ? products.data.length : 0;
+    //         const totalPages = Math.ceil(totalItems / validLimit);
+    //         const startIndex = (validPage - 1) * validLimit;
+    //         const endIndex = startIndex + validLimit;
+
+    //         const productToDisplay = products.data.slice(startIndex, endIndex);
+
+    //         // Send response
+    //         res.json({
+    //             currentPage: validPage,
+    //             totalPages: totalPages,
+    //             item: productToDisplay,
+    //         });
+    //     } catch (error) {
+    //         console.error("Error filtering products:", error.message);
+    //         res.status(500).send("An error occurred while fetching products");
+    //     }
+    // }
+
     async filterProduct(req, res) {
-        console.log("Filter products");
+        console.log("Products controller");
         try {
             console.log(req.body);
-            const { page, limit, brands, models, sorttype, sortby } = req.body;
+
+            const { page, limit, brands, models, sortType, sortBy } = req.body;
             const query = {
-                brands: brands ? brands.split(',') : [],
-                models: models ? models.split(',') : [],
-                sortType: sorttype,
-                sortBy: sortby
+                brands: brands,
+                models: models,
+                sortType: sortType,
+                sortBy: sortBy
             };
     
             const products = await productService.filterProduct(query);
@@ -167,22 +244,8 @@ class ProductController {
     }
 
 
-    //     async filterProduct(req, res) {
-    //         const query = req.query;
-    //         const brands = await productService.getAllBrands();
-    //         const models = await productService.getAllModels();
-    //         if (!query) {
-    //             return;
-    //         }
-    //         try {
-    //             const products = await productService.filterProduct(query);
-    //             res.render('product', { isAuthenticated: req.isAuthenticated, products: multipleMongooseToObject(products), brands: brands, models: models });
-    //         }
-    //         catch (error) {
-    //             console.error(error);
-    //             res.status(500).send("An error occurred while fetching products");
-    //         }
-    //     }
+
+
 
     async getSomeProduct(req, res) {
         console.log("new try");
