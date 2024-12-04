@@ -196,6 +196,7 @@ function handleSubmitLogin() {
       return res.json();
     })
     .then((data) => {
+      console.log(data);
       if (data.status === "success") {
         localStorage.setItem("notify", JSON.stringify({
           type: data.status,
