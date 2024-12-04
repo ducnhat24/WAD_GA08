@@ -28,6 +28,8 @@ class UserController {
 
     async logout(req, res) {
         const refreshToken = req.cookies.refreshToken;
+        const COOKIE_DOMAIN = ".vercel.app";
+        const COOKIE_PATH = "/";
         console.log(refreshToken);
         res.clearCookie('refreshToken', {domain: COOKIE_DOMAIN, path: COOKIE_PATH});
         res.clearCookie('accessToken', {domain: COOKIE_DOMAIN, path: COOKIE_PATH});
