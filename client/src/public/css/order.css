@@ -1,0 +1,48 @@
+.order {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+}
+
+.order__header, .order__footer {
+    text-align: center;
+
+}
+
+.order__header {
+    margin-top: 80px;
+}
+
+.order__body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.order__summary, .order__total {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order__actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.custom_button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom_button:hover {
+    background-color: #0056b3;
+}
