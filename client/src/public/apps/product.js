@@ -2,7 +2,6 @@ let currentPage = 1; // Current page number
 let limit = 5;       // Items per page
 let totalPages = 0;  // Total number of pages
 const cache = new Map(); // Cache to store prefetched pages
-const url_product ="https://wad-ga-07-backend.vercel.app"
 
 function addCart() {
     // Add item to cart
@@ -15,7 +14,7 @@ function addCart() {
         quantity = Number(quantityContainer.value);
     }
     console.log(quantity);
-    fetch(url_product, {
+    fetch("https://wad-ga-07-backend.vercel.app/cart", {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -39,7 +38,7 @@ function addCart() {
 function prefetchPage(page) {
     if (cache.has(page) || page > totalPages || page < 1) return;
 
-    fetch(url_product, {
+    fetch(`https://wad-ga-07-backend.vercel.app/product/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page, limit })
@@ -59,7 +58,7 @@ function loadProducts() {
         return;
     }
     showSpinner(); // Hiển thị spinner
-    fetch(url_product, {
+    fetch(`https://wad-ga-07-backend.vercel.app/product/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: currentPage, limit })
@@ -172,7 +171,7 @@ function filterProducts() {
     console.log(filterPayload);
     showSpinner();
     // Fetch filtered products
-    fetch(url_product, {
+    fetch('https://wad-ga-07-backend.vercel.app/product/filter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(filterPayload)
