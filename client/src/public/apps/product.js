@@ -3,6 +3,29 @@ let limit = 5;       // Items per page
 let totalPages = 0;  // Total number of pages
 const cache = new Map(); // Cache to store prefetched pages
 
+function addCart() {
+    // Add item to cart
+    const idContainer = document.getElementById("hehe");
+    const quantityContainer = document.getElementById("each-production-quanity");
+    fetch("http://localhost:3000/cart", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            userID: user.id,
+            productID: idContainer.innerText,
+            quantity: quantityContainer.value
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                notify({ type: 'success', msg: 'Product added to cart' });
+            } else {
+                alert(data.message);
+            }
+        })
+}
+
 // Prefetch next page data
 function prefetchPage(page) {
     if (cache.has(page) || page > totalPages || page < 1) return;
@@ -34,6 +57,7 @@ function loadProducts() {
     })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             hideSpinner(); // Ẩn spinner
             const { totalPages: total, item } = data;
             totalPages = total; // Update total pages

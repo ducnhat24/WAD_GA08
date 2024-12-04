@@ -1,5 +1,5 @@
 const User = require("../schemas/User"); // Import model User
-
+const Product = require("../schemas/Product"); // Import model Product
 
 class CartService {
     async addProductToCart({ userID, productID, quantity }) {
@@ -23,8 +23,6 @@ class CartService {
                 user.cart.push({ productId: productID, quantity });
             }
 
-            console.log(user);
-            console.log(user.cart);
             // Lưu thay đổi
             await user.save();
             return { status: 'success', message: "Product added to cart", cart: user.cart }
@@ -38,16 +36,20 @@ class CartService {
     async removeProductFromCart({ userID, productID }) {
         try {
             // Tìm người dùng
+            console.log(userID);
+            console.log(productID);
             const user = await User.findOne({ _id: userID });
             if (!user) {
                 return { status: 'error', message: "User not found" };
             }
 
             // Lọc bỏ sản phẩm có `productID` ra khỏi giỏ hàng
-            user.cart = user.cart.filter(
-                (item) => item.productID.toString() !== productID
+            const newCart = user.cart.filter(
+                (item) => item.productId.toString() !== productID
             );
+            user.cart = newCart;
 
+            console.log(user.cart);
             // Lưu thay đổi
             await user.save();
             return { status: 'success', message: "Product removed from cart" };
@@ -61,30 +63,31 @@ class CartService {
 
     async updateProductInCart({ userID, productID, quantity }) {
         try {
+            console.log(userID);
+            console.log(productID);
+            console.log(quantity);
             // Tìm người dùng
             const user = await User.findOne({ _id: userID });
             if (!user) {
                 return { status: 'error', message: "User not found" };
             }
 
-            const newProductCart = user.cart.map((cart) => {
-                if (cart.productID.toString() === productID) {
-                    cart.quantity += Number(quantity);
+            const newCart = user.cart.map((item) => {
+                if (item.productId.toString() === productID) {
+                    item.quantity = quantity;
                 }
-                return cart;
+                return item;
             });
-
-            user.cart = newProductCart;
+            user.cart = newCart;
 
             // Lưu thay đổi
             await user.save();
-            res
-                .status(200)
-                .json({ message: "Cart updated successfully", cart: user.cart });
+            return { status: 'success', message: "Cart updated successfully", cart: user.cart };
         } catch (error) {
-            res
-                .status(500)
-                .json({ message: "Error updating cart", error: error.message });
+            return {
+                status: 'error',
+                message: error.message,
+            }
         }
     }
 
@@ -95,8 +98,25 @@ class CartService {
             if (!user) {
                 return { status: 'error', message: "User not found" };
             }
-            // Trả về giỏ hàng
-            return { status: 'success', message: "Get cart successfully", cart: user.cart };
+            // Trả về danh sách sản phẩm ứng với giỏ hàng của người dùng
+            // console.log(user);
+            const productsInCart = await Promise.all(
+                user.cart.map(async (item) => {
+                    const product = await Product.findOne({ _id: item.productId });
+                    return {
+                        ...product["_doc"],
+                        quantity: item.quantity,
+                    };
+                })
+            );
+            const userDisplay = {
+                _id: user._id,
+                username: user.name,
+                useremail: user.email,
+            }
+
+            return { status: 'success', user: userDisplay, cart: productsInCart };
+
         } catch (error) {
             return { status: 'error', message: error.message };
         }

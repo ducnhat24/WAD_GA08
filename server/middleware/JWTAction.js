@@ -57,7 +57,6 @@ function renewAccessToken(req, res) {
 }
 
 function verifyToken(req, res, next) {
-    // console.log(req.cookies);
     try {
 
         const token = req.cookies.accessToken;
@@ -83,7 +82,21 @@ function verifyToken(req, res, next) {
             return renewAccessToken(req, res);
         }
     }
+
+
 }
+
+// async function getUser() {
+//     try {
+
+//         const user = await User.findOne({ _id: this.user.id });
+//         return user;
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// }
+
 
 
 module.exports = {

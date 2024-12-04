@@ -2,19 +2,17 @@
 
 const CartService = require('../model/CartService.js');
 const cartService = new CartService();
+const jwt = require('jsonwebtoken');
 const User = require("../schemas/User"); // Import model User
 // const { multipleMongooseToObject, mongooseToObject } = require('../utils/mongoose');
 class CartController {
     async addProductToCart(req, res) {
         try {
-            console.log(req.body);
             const { userID, productID, quantity } = req.body;
             const result = await cartService.addProductToCart({ userID, productID, quantity });
-            console.log(result);
             if (result.status === 'success') {
-                return res.status(200).json({ cart: result.cart });
+                return res.status(200).json({ status: 'success', message: 'Add succesfully' });
             }
-            console.log(result.message);
             return res.status(500).json({ message: "Error adding to cart" });
         }
         catch {
@@ -23,13 +21,14 @@ class CartController {
     }
 
     async removeProductFromCart(req, res) {
-        const { userId, productId } = req.body;
+        const { productId } = req.body;
+        const accessToken = req.cookies.accessToken;
+        const token = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET)
         try {
-            const result = await cartService.removeProductFromCart({ userId, productId });
+            const result = await cartService.removeProductFromCart({ userID: token.id, productID: productId });
             if (result.status === 'success') {
                 return res.status(200).json({ message: "Product removed from cart" });
             }
-            console.log(result.message);
             return res.status(500).json({ message: "Error removing from cart" });
         }
         catch (err) {
@@ -38,9 +37,11 @@ class CartController {
     }
 
     async updateProductInCart(req, res) {
-        const { userId, productId, quantity } = req.body;
+        const { productId, quantity } = req.body;
+        const accessToken = req.cookies.accessToken;
+        const token = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET)
         try {
-            const result = await cartService.updateProductInCart({ userId, productId, quantity });
+            const result = await cartService.updateProductInCart({ userID: token.id, productID: productId, quantity });
             if (result.status === 'success') {
                 return res.status(200).json({ status: 'success', message: "Product updated in cart" });
             }
@@ -54,14 +55,15 @@ class CartController {
     }
 
     async getCart(req, res) {
-        const { userId } = req.params;
 
         try {
-            const result = await cartService.getCart(userId);
+            const accessToken = req.cookies.accessToken;
+            const token = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET)
+
+            const result = await cartService.getCart(token.id);
             if (result.status === 'success') {
-                return res.status(200).json({ cart: result.cart });
+                return res.status(200).json({ cart: result.cart, user: result.user });
             }
-            console.log(result.message);
             return res.status(500).json({ message: "Error getting cart" });
         }
         catch (err) {

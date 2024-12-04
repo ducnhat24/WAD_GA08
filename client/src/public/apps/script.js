@@ -84,7 +84,9 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then((data) => {
+
       user = data.user;
+      console.log("User: ", user);
       if (data.status === "success") {
         // Token is valid; show logout icon
         document.querySelector(".header__account").innerHTML = `
@@ -136,7 +138,7 @@ function handleSubmitSignup() {
   }
 
   // Send data to server
-  fetch(url + "user/signup", {
+  fetch(url + "/user/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
