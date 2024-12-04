@@ -202,7 +202,7 @@ function handleSubmitLogin() {
           type: data.status,
           msg: data.msg,
         }));
-        location.href = "/";
+        // location.href = "/";
       }
     })
     .catch((error) => {
