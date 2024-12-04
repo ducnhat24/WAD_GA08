@@ -95,7 +95,7 @@ function renderOrderSummary(cart) {
 }
 
 function showOrder() {
-    fetch("http://localhost:3000/cart", {
+    fetch("https://wad-ga-07-backend.vercel.app/cart", {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'

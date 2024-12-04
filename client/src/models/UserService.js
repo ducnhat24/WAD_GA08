@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000';
+const url = 'https://wad-ga-07-backend.vercel.app';
 
 class UserService {
     async getProductInCard() {
