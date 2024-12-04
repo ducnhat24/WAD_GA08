@@ -68,7 +68,7 @@ function createCartItem(item) {
 
                 <div class="card__item__footer">
                     <div class="card__product__price">
-                        <span>${item.price}</span>
+                        <span>${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(item.price,)}</span>
                     </div>
 
                     <div class="cart__item__btn">

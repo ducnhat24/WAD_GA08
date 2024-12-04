@@ -30,7 +30,7 @@
     justify-content: space-between;
 }
 
-.cart .cart__item {
+.cart__item {
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
@@ -39,7 +39,7 @@
     position: relative;
 }
 
-.cart .cart__item>button {
+.cart__item>button {
     position: absolute;
     width: 30px;
     height: 30px;
@@ -54,11 +54,11 @@
     border: none;
 }
 
-.cart .cart__item>button:last-child {
+.cart__item>button:last-child {
     right: 60px;
 }
 
-.cart .cart__item+.cart__item {
+.cart__item+.cart__item {
     margin-top: 20px;
 }
 
