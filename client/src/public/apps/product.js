@@ -19,7 +19,6 @@ function addCart() {
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            userID: user.id,
             productID: idContainer.innerText,
             quantity: quantity,
         })
