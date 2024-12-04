@@ -122,3 +122,9 @@
 .cart__customer__detail__content .cart__customer__detail__item span:first-child {
     font-weight: 700;
 }
+
+#checkout_button{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
