@@ -60,9 +60,11 @@
           <a href="/contact">Contact</a>
         </div>
         <div class="header__cart">
-          <button class="cart-button" onclick="showCart()">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </button>
+          <a href="/user/cart">
+            <button class="cart-button" onclick="showCart()">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+          </a>
           <span id="cart-count" class="cart-count">0</span>
 
         </div>
@@ -189,6 +191,7 @@
     crossorigin="anonymous"></script>
   <script src="/apps/script.js"></script>
   <script src="/apps/product.js"></script>
+  <script src="/apps/cart.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {

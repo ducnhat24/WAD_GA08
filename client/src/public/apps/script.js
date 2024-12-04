@@ -1,4 +1,6 @@
 const url = "http://localhost:3000";
+let user = null;
+console.log(user);
 
 function showNav() {
   const navBar = document.querySelector(".header__sidebar");
@@ -82,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      user = data.user;
       if (data.status === "success") {
         // Token is valid; show logout icon
         document.querySelector(".header__account").innerHTML = `
@@ -192,7 +194,6 @@ function handleSubmitLogin() {
       return res.json();
     })
     .then((data) => {
-      console.log(data);
       if (data.status === "success") {
         localStorage.setItem("notify", JSON.stringify({
           type: data.status,

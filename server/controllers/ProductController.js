@@ -10,6 +10,7 @@ class ProductController {
         // const value = await productService.getAllProducts();
         // const brands = await productService.getAllBrands();
         // const models = await productService.getAllModels();
+        console.log("Access")
         try {
             const value = await productService.getAllProducts();
             res.json(value);
@@ -148,13 +149,13 @@ class ProductController {
     //             sortType: sorttype,
     //             sortBy: sortby
     //         };
-    
+
     //         const products = await productService.filterProduct(query);
     //         const totalPages = Math.ceil(products.data.length / limit);
     //         const startIndex = (page - 1) * limit;
     //         const endIndex = page * limit;
     //         const productToDisplay = products.data.slice(startIndex, endIndex);
-    
+
     //         res.json({
     //             currentPage: page,
     //             totalPages: totalPages,
@@ -225,13 +226,13 @@ class ProductController {
                 sortType: sortType,
                 sortBy: sortBy
             };
-    
+
             const products = await productService.filterProduct(query);
             const totalPages = Math.ceil(products.data.length / limit);
             const startIndex = (page - 1) * limit;
             const endIndex = page * limit;
             const productToDisplay = products.data.slice(startIndex, endIndex);
-    
+
             res.json({
                 currentPage: page,
                 totalPages: totalPages,
@@ -253,23 +254,23 @@ class ProductController {
             console.log(req.body);
             const page = parseInt(req.body.page) || 1;
             const limit = parseInt(req.body.limit) || 1;
-    
+
             const startIndex = (page - 1) * limit;
             const endIndex = page * limit;
             console.log('Start Index:', startIndex, 'End Index:', endIndex);
-    
+
             const allProducts = await productService.getAllProducts();
-    
+
             const productToDisplay = allProducts.data.slice(startIndex, endIndex);
             console.log('current page:', page);
             console.log('total pages:', Math.ceil(allProducts.data.length / limit));
-    
+
             res.json({
                 currentPage: page,
                 totalPages: Math.ceil(allProducts.data.length / limit),
                 item: productToDisplay,
             });
-    
+
         } catch (error) {
             console.error(error);
             res.status(500).send("An error occurred while fetching products");
@@ -278,3 +279,66 @@ class ProductController {
 }
 
 module.exports = new ProductController;
+
+/*We wish you a merry Christmas
+We wish you a merry Christmas
+We wish you a merry Christmas
+And a happy new year
+We wish you a merry Christmas
+We wish you a merry Christmas
+We wish you a merry Christmas
+And a happy new year
+Good tidings we bring
+To you and your kin
+Good tidings for Christmas
+And a happy new year
+We wish you a merry Christmas
+We wish you a merry Christmas
+We wish you a merry Christmas
+And a happy new year
+Now bring us a figgy pudding
+Now bring us a figgy pudding
+Now bring us a figgy pudding
+And bring some out here
+Now bring us a figgy pudding
+Now bring us a figgy pudding
+Now bring us a figgy pudding
+Then bring some out here
+Good tidings we bring
+To you and your kin
+Good tidings for Christmas
+And a happy new year
+Now bring us a figgy pudding
+Now bring us a figgy pudding
+Now bring us a figgy pudding
+And bring some out here
+For we all like figgy pudding
+For we all like figgy pudding
+For we all like figgy pudding
+So bring some out here
+For we all like figgy pudding
+For we all like figgy pudding
+For we all like figgy pudding
+So bring some out here
+Good tidings we bring
+To you and your kin
+Good tidings for Christmas
+And a happy new year
+For we all like figgy pudding
+For we all like figgy pudding
+For we all like figgy pudding
+So bring some out here
+And we won't go until we got some
+And we won't go until we got some
+And we won't go until we got some
+So bring some out here
+And we won't go until we got some
+And we won't go until we got some
+And we won't go until we got some
+So bring some out here
+Good tidings we bring
+To you and your kin
+Good tidings for Christmas
+And a happy new year
+Good tidings for Christmas
+And a happy new year */

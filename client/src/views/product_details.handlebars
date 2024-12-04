@@ -25,7 +25,7 @@
                 <img src="data:image/png;base64,{{product.image}}" alt="{{product.name}} Exterior"
                     class="img-fluid exterior-car__image w-100 w-sm-90 w-md-80 w-lg-70 w-xl-60 w-xxl-50">
             </div>
-
+            <div id="hehe">{{product._id}}</div>
             <div class="col-12 col-md-6">
                 <table class="table specifications-table">
                     <tr>
@@ -58,7 +58,7 @@
                     </tr>
                 </table>
                 <div>
-                    <button class="custom_button">Thêm vào giỏ hàng</button>
+                    <button onclick="javascript:addCart()" class="custom_button">Thêm vào giỏ hàng</button>
                 </div>
             </div>
         </div>

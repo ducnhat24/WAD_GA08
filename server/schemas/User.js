@@ -31,11 +31,9 @@ const userSchema = new mongoose.Schema({
       productId: {
         type: mongoose.Schema.Types.ObjectId, // Tham chiếu đến `Product`
         ref: "Product", // Model tham chiếu
-        required: true,
       },
       quantity: {
         type: Number,
-        required: true,
         default: 0, // Số lượng mặc định
       },
     },

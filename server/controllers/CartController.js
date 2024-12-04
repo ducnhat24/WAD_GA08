@@ -7,8 +7,10 @@ const User = require("../schemas/User"); // Import model User
 class CartController {
     async addProductToCart(req, res) {
         try {
-            const { userId, productId, quantity } = req.body;
-            const result = await cartService.addProductToCart({ userId, productId, quantity });
+            console.log(req.body);
+            const { userID, productID, quantity } = req.body;
+            const result = await cartService.addProductToCart({ userID, productID, quantity });
+            console.log(result);
             if (result.status === 'success') {
                 return res.status(200).json({ cart: result.cart });
             }

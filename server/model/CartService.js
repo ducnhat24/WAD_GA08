@@ -2,17 +2,17 @@ const User = require("../schemas/User"); // Import model User
 
 
 class CartService {
-    async addProductToCart({ userId, productId, quantity }) {
+    async addProductToCart({ userID, productID, quantity }) {
         try {
             // Tìm người dùng
-            const user = await User.findOne({ _id: userId });
+            const user = await User.findOne({ _id: userID });
             if (!user) {
                 return { status: 'error', message: "User not found" };
             }
 
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ chưa
             const cartItem = user.cart.find(
-                (item) => item.productId.toString() === productId
+                (item) => item.productId === productID
             );
 
             if (cartItem) {
@@ -20,9 +20,11 @@ class CartService {
                 cartItem.quantity += quantity;
             } else {
                 // Nếu chưa tồn tại, thêm sản phẩm mới
-                user.cart.push({ productId, quantity });
+                user.cart.push({ productId: productID, quantity });
             }
 
+            console.log(user);
+            console.log(user.cart);
             // Lưu thay đổi
             await user.save();
             return { status: 'success', message: "Product added to cart", cart: user.cart }
@@ -33,17 +35,17 @@ class CartService {
     }
     // Kiểm tra xem sản phẩm đã tồn tại trong giỏ chưa
 
-    async removeProductFromCart({ userId, productId }) {
+    async removeProductFromCart({ userID, productID }) {
         try {
             // Tìm người dùng
-            const user = await User.findOne({ _id: userId });
+            const user = await User.findOne({ _id: userID });
             if (!user) {
                 return { status: 'error', message: "User not found" };
             }
 
-            // Lọc bỏ sản phẩm có `productId` ra khỏi giỏ hàng
+            // Lọc bỏ sản phẩm có `productID` ra khỏi giỏ hàng
             user.cart = user.cart.filter(
-                (item) => item.productId.toString() !== productId
+                (item) => item.productID.toString() !== productID
             );
 
             // Lưu thay đổi
@@ -57,16 +59,16 @@ class CartService {
         }
     }
 
-    async updateProductInCart({ userId, productId, quantity }) {
+    async updateProductInCart({ userID, productID, quantity }) {
         try {
             // Tìm người dùng
-            const user = await User.findOne({ _id: userId });
+            const user = await User.findOne({ _id: userID });
             if (!user) {
                 return { status: 'error', message: "User not found" };
             }
 
             const newProductCart = user.cart.map((cart) => {
-                if (cart.productId.toString() === productId) {
+                if (cart.productID.toString() === productID) {
                     cart.quantity += Number(quantity);
                 }
                 return cart;
@@ -86,10 +88,10 @@ class CartService {
         }
     }
 
-    async getCart(userId) {
+    async getCart(userID) {
         try {
             // Tìm người dùng
-            const user = await User.findOne({ _id: userId });
+            const user = await User.findOne({ _id: userID });
             if (!user) {
                 return { status: 'error', message: "User not found" };
             }

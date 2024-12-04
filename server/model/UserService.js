@@ -73,7 +73,8 @@ class UserService {
                 status: "success",
                 accessToken: generateAccessToken(payload),
                 refreshToken: refreshToken,
-                msg: "Login successful"
+                msg: "Login successful",
+                user: existingUser,
             };
         }
         catch (error) {

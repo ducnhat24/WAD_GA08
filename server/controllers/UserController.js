@@ -38,6 +38,7 @@ class UserController {
     async auth(req, res) {
         return res.json({
             status: 'success',
+            user: req.user,
             msg: 'Authenticated'
         });
 

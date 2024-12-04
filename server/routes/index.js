@@ -1,5 +1,6 @@
 const userRoute = require("./user");
 const productRoute = require("./product");
+const cartRoute = require("./cart");
 const { verifyToken } = require("../middleware/JWTAction");
 
 function route(app) {
