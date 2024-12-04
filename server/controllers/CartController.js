@@ -8,8 +8,15 @@ const User = require("../schemas/User"); // Import model User
 class CartController {
     async addProductToCart(req, res) {
         try {
-            const { userID, productID, quantity } = req.body;
-            const result = await cartService.addProductToCart({ userID, productID, quantity });
+            const { productID, quantity } = req.body;
+            const accessToken = req.cookies.accessToken;
+            const token = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET)
+
+            console.log(token.id);
+            console.log(productID);
+            console.log(quantity);
+
+            const result = await cartService.addProductToCart({ userID: token.id, productID, quantity });
             if (result.status === 'success') {
                 return res.status(200).json({ status: 'success', message: 'Add succesfully' });
             }

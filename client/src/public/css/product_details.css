@@ -71,9 +71,25 @@
     text-align: center;
 }
 
-.product_details {
+.product_header {
     margin-top: 100px;
     text-align: center;
+}
+
+.product-detail input {
+    background: transparent;
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 8px 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.product-detail input::-webkit-inner-spin-button,
+.product-detail input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Specifications Table */

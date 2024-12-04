@@ -6,14 +6,22 @@ const cache = new Map(); // Cache to store prefetched pages
 function addCart() {
     // Add item to cart
     const idContainer = document.getElementById("hehe");
+    let quantity = 1;
     const quantityContainer = document.getElementById("each-production-quanity");
+    console.log(Number(quantityContainer.value));
+    if (!isNaN(quantityContainer.value) && Number(quantityContainer.value) > 0) {
+        console.log("hehe");
+        quantity = Number(quantityContainer.value);
+    }
+    console.log(quantity);
     fetch("http://localhost:3000/cart", {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             userID: user.id,
             productID: idContainer.innerText,
-            quantity: quantityContainer.value
+            quantity: quantity,
         })
     })
         .then(response => response.json())
