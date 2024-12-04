@@ -19,6 +19,7 @@ class UserController {
         const user = await userService.login({ useraccount, password });
         const options = {
             sameSite: "none",
+            
         };  
         res.cookie('accessToken', user.accessToken, options);
         res.cookie('refreshToken', user.refreshToken, options);
