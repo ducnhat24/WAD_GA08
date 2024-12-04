@@ -9,7 +9,7 @@ const seed = require('./config/seed');
 app.use(express.json());
 app.use(cors({
     // origin: 'https://wad-ga-06-a8w4.vercel.app',
-    origin: 'https://wad-ga-07-backend.vercel.app',
+    origin: 'https://wad-ga-07-client.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true // Required for cookies
 }));
