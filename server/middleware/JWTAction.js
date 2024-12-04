@@ -69,7 +69,7 @@ function verifyToken(req, res, next) {
         jwt.verify(token, process.env.JWT_ACCESS_SECRET, (err, user) => {
             if (err) {
                 req.isAuthenticated = false;
-                return next();
+                return;
             }
 
             req.user = user;
