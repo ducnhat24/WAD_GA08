@@ -20,7 +20,7 @@ class UserController {
         const options = {
             sameSite: "none",
             secure: true,
-        };  
+        };
         res.cookie('accessToken', user.accessToken, options);
         res.cookie('refreshToken', user.refreshToken, options);
         res.json(user);
@@ -28,11 +28,15 @@ class UserController {
 
     async logout(req, res) {
         const refreshToken = req.cookies.refreshToken;
-        const COOKIE_DOMAIN = ".vercel.app";
         const COOKIE_PATH = "/";
+        const options = {
+            sameSite: "none",
+            secure: true,
+            path: COOKIE_PATH,
+        };
         console.log(refreshToken);
-        res.clearCookie('refreshToken', {domain: COOKIE_DOMAIN, path: COOKIE_PATH});
-        res.clearCookie('accessToken', {domain: COOKIE_DOMAIN, path: COOKIE_PATH});
+        res.clearCookie('refreshToken', { domain: COOKIE_DOMAIN, options });
+        res.clearCookie('accessToken', { domain: COOKIE_DOMAIN, options });
         const user = await userService.logout(refreshToken);
 
         return res.json({
