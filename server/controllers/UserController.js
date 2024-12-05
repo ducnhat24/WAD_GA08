@@ -35,8 +35,8 @@ class UserController {
             path: COOKIE_PATH,
         };
         console.log(refreshToken);
-        res.clearCookie('refreshToken', { domain: COOKIE_DOMAIN, options });
-        res.clearCookie('accessToken', { domain: COOKIE_DOMAIN, options });
+        res.clearCookie('refreshToken', options);
+        res.clearCookie('accessToken', options);
         const user = await userService.logout(refreshToken);
 
         return res.json({
