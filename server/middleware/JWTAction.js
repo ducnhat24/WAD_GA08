@@ -82,8 +82,12 @@ function verifyToken(req, res, next) {
             return renewAccessToken(req, res);
         }
     }
+}
 
-
+module.exports = {
+    generateAccessToken,
+    generateRefreshToken,
+    verifyToken,
 }
 
 // async function getUser() {
@@ -96,11 +100,3 @@ function verifyToken(req, res, next) {
 //         console.log(err);
 //     }
 // }
-
-
-
-module.exports = {
-    generateAccessToken,
-    generateRefreshToken,
-    verifyToken,
-}

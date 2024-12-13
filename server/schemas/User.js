@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: false, //để false vì khi đăng nhập bằng google sẽ không cần password
   },
   createdAt: {
     type: Date,
@@ -38,6 +38,12 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+  googleId: {
+    type: String,
+    required: false, // Chỉ cần cho OAuth
+    unique: true, // Đảm bảo mỗi Google ID là duy nhất
+    sparse: true, // Để không bắt buộc trường này khi user đăng ký bằng cách khác
+  },
 });
 
 const User = mongoose.model("User", userSchema);

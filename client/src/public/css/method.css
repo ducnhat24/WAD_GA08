@@ -94,6 +94,10 @@
     box-shadow: 0 2px 10px 5px rgba(0, 0, 0, 0.6);
 }
 
+.method__form .method__form__button button:hover {
+    background-color: #000000;
+}
+
 .method__form .method__form__signup {
     display: flex;
     justify-content: center;

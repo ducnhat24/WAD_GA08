@@ -85,6 +85,161 @@ class UserService {
         }
     }
 
+    async loginWithGoogle(googleProfile) {
+        try {
+            const { id, email, name } = googleProfile;
+            console.log(id, email, name);
+
+            if (!email) {
+                throw new Error('Email is required');
+            }
+            console.log("before find user");
+            // Kiểm tra xem user đã tồn tại chưa bằng email
+            let user = await User.findOne({ email: email });
+            console.log("after find user");
+            console.log(user);
+            if (!user) {
+                // Nếu chưa tồn tại, tạo mới user
+                user = new User({
+                    googleId: id,
+                    email: email,
+                    name: name,
+                });
+                await user.save(); // Save the user if new
+            } else {
+                // Nếu đã tồn tại user, kiểm tra nếu googleId chưa được lưu
+                if (user.googleId !== id) {
+                    // Update user nếu googleId khác
+                    user.googleId = id;
+                    user.name = name;  // You can also update the name if necessary
+                    await user.save(); // Save updated user
+                }
+            }
+
+            const payload = { id: user._id };
+
+            // Tạo accessToken và refreshToken
+            const accessToken = generateAccessToken(payload);
+            const refreshToken = generateRefreshToken(payload);
+
+            // Lưu refreshToken vào cơ sở dữ liệu
+            user.refreshToken = refreshToken;
+            await user.save(); // Save the refreshToken
+
+            return {
+                status: "success",
+                accessToken: accessToken,
+                refreshToken: refreshToken,
+                user: user,
+            };
+        } catch (error) {
+            console.error("Error in loginWithGoogle:", error);
+            return {
+                status: "error",
+                message: error.message,
+            };
+        }
+    }
+
+
+    // async loginWithGoogle(googleProfile) {
+    //     try {
+    //         const { id, email, name } = googleProfile;
+    //         console.log(id, email, name);
+
+    //         if (!email) {
+    //             throw new Error('Email is required');
+    //         }
+
+    //         // Kiểm tra xem user đã tồn tại chưa bằng email
+    //         let user = await User.findOne({ email: email });
+
+    //         if (!user) {
+    //             // Nếu chưa tồn tại, tạo mới user
+    //             user = new User({
+    //                 googleId: id,
+    //                 email: email,
+    //                 name: name,
+    //             });
+    //             await user.save();
+    //         } else {
+    //             // Nếu đã tồn tại user, có thể cần update thông tin
+    //             user.googleId = id; // Update Google ID if necessary
+    //             user.name = name;    // Update user name if necessary
+    //             await user.save();
+    //         }
+
+    //         const payload = { id: user._id };
+
+    //         // Tạo accessToken và refreshToken
+    //         const accessToken = generateAccessToken(payload);
+    //         const refreshToken = generateRefreshToken(payload);
+
+    //         // Lưu refreshToken vào cơ sở dữ liệu
+    //         user.refreshToken = refreshToken;
+    //         await user.save();
+
+    //         return {
+    //             status: "success",
+    //             accessToken: accessToken,
+    //             refreshToken: refreshToken,
+    //             user: user,
+    //         };
+    //     } catch (error) {
+    //         console.error("Error in loginWithGoogle:", error);
+    //         return {
+    //             status: "error",
+    //             message: error.message,
+    //         };
+    //     }
+    // }
+
+    // async loginWithGoogle(googleProfile) {
+    //     try {
+    //         const { id, email, name } = googleProfile;
+    //         console.log(id, email, name);
+
+    //         if (!email) {
+    //             throw new Error('Email is required');
+    //         }
+    //         // Kiểm tra xem user đã tồn tại chưa
+    //         let user = await User.findOne({ googleId: id });
+    //         if (!user) {
+    //             // Nếu chưa tồn tại, tạo mới user
+    //             user = new User({
+    //                 googleId: id,
+    //                 email: email,
+    //                 name: name,
+    //             });
+    //             await user.save();
+    //         }
+
+    //         const payload = { id: user._id };
+
+    //         // Tạo accessToken và refreshToken
+    //         const accessToken = generateAccessToken(payload);
+    //         const refreshToken = generateRefreshToken(payload);
+
+    //         // Lưu refreshToken vào cơ sở dữ liệu
+    //         user.refreshToken = refreshToken;
+    //         await user.save();
+
+    //         return {
+    //             status: "success",
+    //             accessToken: accessToken,
+    //             refreshToken: refreshToken,
+    //             user: user,
+    //         };
+    //     } catch (error) {
+    //         console.error("Error in loginWithGoogle:", error);
+    //         return {
+    //             status: "error",
+    //             message: error.message,
+    //         };
+    //     }
+    // }
+
+
     async logout(refreshToken) {
         try {
             const user = await User.findOne({ refreshToken: refreshToken });
