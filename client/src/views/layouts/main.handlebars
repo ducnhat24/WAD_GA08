@@ -60,17 +60,7 @@
         <div class="header__nav__item">
           <a href="/contact">Contact</a>
         </div>
-        <div class="header__cart">
 
-          <a href="/user/cart">
-            <button onClick="showCart()" class="cart-button">
-              <i class="fa-solid fa-cart-shopping"></i>
-            </button>
-          </a>
-
-          <span id="cart-count" class="cart-count">0</span>
-
-        </div>
       </div>
 
       <div class="header__account">
@@ -101,9 +91,21 @@
         </div>
       </div> }}
     </div>
+    <div class="cart_button">
+      <div class="header__cart">
 
-    <div onclick="showNav()" class="header__btn__nav">
-      <i class="fa-solid fa-list"></i>
+        <a href="/user/cart">
+          <button onClick="showCart()" class="cart-button">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </button>
+        </a>
+
+        <span id="cart-count" class="cart-count">0</span>
+
+      </div>
+      <div onclick="showNav()" class="header__btn__nav">
+        <i class="fa-solid fa-list"></i>
+      </div>
     </div>
 
     <div class="header__sidebar">
@@ -126,14 +128,6 @@
 
         <div class="header__item">
           <a href="/contact">Contact</a>
-        </div>
-
-        <div class="header__item">
-          <a href="/user/signup">Signup</a>
-        </div>
-
-        <div class="header__item">
-          <a href="/user/login">Login</a>
         </div>
       </div>
     </div>

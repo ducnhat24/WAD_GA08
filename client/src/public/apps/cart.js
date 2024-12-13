@@ -1,7 +1,7 @@
 function handleDeleteCard(id) {
     const productId = id;
     console.log(productId);
-    fetch("https://wad-ga-07-backend.vercel.app/cart", {
+    fetch("http://localhost:3000/cart", {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -31,7 +31,7 @@ function decreaseQuantity(quantity) {
 function handleUpdateQuantity(id, quantity) {
     const productId = id;
 
-    fetch("https://wad-ga-07-backend.vercel.app/cart", {
+    fetch("http://localhost:3000/cart", {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -157,7 +157,7 @@ function renderProductsInCart(productList) {
 // }
 function showCart() {
     // Show cart
-    fetch("https://wad-ga-07-backend.vercel.app/cart", {
+    fetch("http://localhost:3000/cart", {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -171,5 +171,5 @@ function showCart() {
         })
 }
 
-showCart();
 
+showCart();

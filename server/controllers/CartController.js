@@ -10,17 +10,17 @@ class CartController {
         try {
             const { productID, quantity } = req.body;
             const accessToken = req.cookies.accessToken;
+            
+            if (!accessToken) {
+                return res.json({status: "warning", msg: "Please login first!"});
+            }
+            
             const token = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET)
-
-            console.log(token.id);
-            console.log(productID);
-            console.log(quantity);
-
             const result = await cartService.addProductToCart({ userID: token.id, productID, quantity });
             if (result.status === 'success') {
-                return res.status(200).json({ status: 'success', message: 'Add succesfully' });
+                return res.status(200).json({ status: 'success', msg: 'Add succesfully' });
             }
-            return res.status(500).json({ message: "Error adding to cart" });
+            return res.status(500).json({ msg: "Error adding to cart" });
         }
         catch {
             console.log("Error adding to cart");

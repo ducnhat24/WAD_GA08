@@ -20,7 +20,7 @@ class UserController {
         const options = {
             sameSite: "none",
             secure: true,
-        };
+        };  
         res.cookie('accessToken', user.accessToken, options);
         res.cookie('refreshToken', user.refreshToken, options);
         res.json(user);
@@ -28,15 +28,9 @@ class UserController {
 
     async logout(req, res) {
         const refreshToken = req.cookies.refreshToken;
-        const COOKIE_PATH = "/";
-        const options = {
-            sameSite: "none",
-            secure: true,
-            path: COOKIE_PATH,
-        };
         console.log(refreshToken);
-        res.clearCookie('refreshToken', options);
-        res.clearCookie('accessToken', options);
+        res.clearCookie('refreshToken');
+        res.clearCookie('accessToken');
         const user = await userService.logout(refreshToken);
 
         return res.json({

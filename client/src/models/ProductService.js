@@ -3,7 +3,7 @@
 class ProductService {
     async getProductList() {
         try {
-            const response = await fetch("https://wad-ga-07-backend.vercel.app/product/", {
+            const response = await fetch("http://localhost:3000/product/", {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -20,47 +20,47 @@ class ProductService {
         }
     }
 
-    async getBrandList() {
-        try {
-            const response = await fetch("https://wad-ga-07-backend.vercel.app/product/brands", {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            });
+    // async getBrandList() {
+    //     try {
+    //         const response = await fetch("http://localhost:3000/product/brands", {
+    //             method: 'GET',
+    //             headers: { 'Content-Type': 'application/json' },
+    //         });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! status: ${response.status}`);
+    //         }
 
-            const data = await response.json();
-            return data;
-        } catch (err) {
-            console.log(err.message);
-            return null;
-        }
-    }
+    //         const data = await response.json();
+    //         return data;
+    //     } catch (err) {
+    //         console.log(err.message);
+    //         return null;
+    //     }
+    // }
 
-    async getModelList() {
-        try {
-            const response = await fetch("https://wad-ga-07-backend.vercel.app/product/models", {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            });
+    // async getModelList() {
+    //     try {
+    //         const response = await fetch("http://localhost:3000/product/models", {
+    //             method: 'GET',
+    //             headers: { 'Content-Type': 'application/json' },
+    //         });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! status: ${response.status}`);
+    //         }
 
-            const data = await response.json();
-            return data;
-        } catch (err) {
-            console.log(err.message);
-            return null;
-        }
-    }
+    //         const data = await response.json();
+    //         return data;
+    //     } catch (err) {
+    //         console.log(err.message);
+    //         return null;
+    //     }
+    // }
 
     async getProductFilter(query) {
         const { brands, models, sortby, sorttype } = query;
-        let url = 'https://wad-ga-07-backend.vercel.app/product/filter?';
+        let url = 'http://localhost:3000/product/filter?';
         let flag = false;
         if (brands) {
             url += ("brands=" + brands);
@@ -100,7 +100,7 @@ class ProductService {
 
     async getProductDetails(id) {
         try {
-            const response = await fetch(`https://wad-ga-07-backend.vercel.app/product/${id}`, {
+            const response = await fetch(`http://localhost:3000/product/${id}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -138,7 +138,7 @@ class ProductService {
     async getSameProducts(brand, model) {
         try {
             //fetch all products 
-            const response = await fetch("https://wad-ga-07-backend.vercel.app/product/", {
+            const response = await fetch("http://localhost:3000/product/", {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });

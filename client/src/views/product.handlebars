@@ -19,11 +19,11 @@
                     </div>
                     <h5 class="mt-4">Brand</h5>
                     <div id="brand-filter" class="filter-area btn-group-toggle" data-toggle="buttons">
-                        {{#each brands}}
+                        {{!-- {{#each brands}}
                         <input type="checkbox" id="checkbox_{{this}}" {{#if (includes this
                             ../selectedBrands)}}checked{{/if}}>
                         <label class="btn btn-outline-warning" for="checkbox_{{this}}">{{this}}</label>
-                        {{/each}}
+                        {{/each}} --}}
 
                         {{!-- <input type="checkbox" id="checkbox_bmw" {{#if (includes "bmw"
                             selectedBrands)}}checked{{/if}}>
@@ -44,12 +44,12 @@
 
                     <h5 class="mt-4">Model</h5>
                     <div id="model-filter" class="filter-area btn-group-toggle" data-toggle="buttons">
-                        {{#each models}}
+                        {{!-- {{#each models}}
 
                         <input type="checkbox" id="checkbox_{{this}}" {{#if (includes this
                             ../selectedModels)}}checked{{/if}}>
                         <label class="btn btn-outline-warning" for="checkbox_{{this}}">{{this}}</label>
-                        {{/each}}
+                        {{/each}} --}}
 
                         {{!-- <input type="checkbox" id="checkbox_sedan" {{#if (includes "sedan"
                             selectedBrands)}}checked{{/if}}>
@@ -95,44 +95,42 @@
                                 <div class="spinner-inner"></div>
                             </div>
                             <div id="items-container" class="cars-list">
-                            </div>
+                                {{#each products}}
+                                <div class="card">
 
+                                    <div class="card_img">
+                                        <div class="card_img_fake1"></div>
+                                        <a href="/product/{{this._id}}">
+                                            <img src="data:image/png;base64,{{this.image}}" class="card-img-top"
+                                                alt="{{this.name}}">
+                                        </a>
+                                    </div>
 
-                            {{!-- {{#each products}}
+                                    <div class="card_content">
+                                        <div class="card_price">
+                                            <div class="card_price_fake">
+                                                <div class="card_price_value">
+                                                    {{this.price}}
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <div class="card">
-
-                                <div class="card_img">
-                                    <div class="card_img_fake1"></div>
-                                    <a href="/product/{{this._id}}">
-                                        <img src="data:image/png;base64,{{this.image}}" class="card-img-top"
-                                            alt="{{this.name}}">
-                                    </a>
-                                </div>
-
-                                <div class="card_content">
-                                    <div class="card_price">
-                                        <div class="card_price_fake">
-                                            <div class="card_price_value">
-                                                {{this.price}}
+                                        <div class="card_detail">
+                                            <div class="card_title">
+                                                <a href="/product/{{this._id}}">
+                                                    <h5 class="card-title">{{this.name}}</h5>
+                                                </a>
+                                            </div>
+                                            <div class="card_description">
+                                                <p>{{this.description}}</p>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="card_detail">
-                                        <div class="card_title">
-                                            <a href="/product/{{this._id}}">
-                                                <h5 class="card-title">{{this.name}}</h5>
-                                            </a>
-                                        </div>
-                                        <div class="card_description">
-                                            <p>{{this.description}}</p>
-                                        </div>
-                                    </div>
                                 </div>
+
+                                {{/each}}
                             </div>
 
-                            {{/each}} --}}
                         </div>
                     </div>
                 </div>

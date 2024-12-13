@@ -1,3 +1,4 @@
+const productRouter = require("../../../server/routes/product");
 const ProductService = require("../models/ProductService")
 
 class ProductController {
@@ -12,34 +13,36 @@ class ProductController {
                 brands: null,
                 models: null,
             }
-            // const valueProducts = await ProductService.getProductList();
-            // if (valueProducts.status === 'success') {
-            //     productItems.products = valueProducts.data;
+            const valueProducts = await ProductService.getProductList();
+            if (valueProducts.status === 'success') {
+                productItems.products = valueProducts.data;
+            } else {
+                console.log(valueProducts.message);
+            }
+
+            // const valueBrands = await ProductService.getBrandList();
+            // if (valueBrands.status === 'success') {
+            //     productItems.brands = valueBrands.data;
             // } else {
-            //     console.log(valueProducts.message);
+            //     console.log(valueBrands.message);
             // }
 
-            const valueBrands = await ProductService.getBrandList();
-            if (valueBrands.status === 'success') {
-                productItems.brands = valueBrands.data;
-            } else {
-                console.log(valueBrands.message);
-            }
-
-            const valueModels = await ProductService.getModelList();
-            if (valueModels.status === 'success') {
-                productItems.models = valueModels.data;
-            } else {
-                console.log(valueModels.message);
-            }
+            // const valueModels = await ProductService.getModelList();
+            // if (valueModels.status === 'success') {
+            //     productItems.models = valueModels.data;
+            // } else {
+            //     console.log(valueModels.message);
+            // }
             const time2 = new Date().getTime();
             console.log("Time to fetch data from db:", time2 - time1);
 
 
-            res.render('product', { brands: productItems.brands, models: productItems.models })
+            // res.render('product', { brands: productItems.brands, models: productItems.models })
+
             const time3 = new Date().getTime();
             console.log("Time to render:", time3 - time2);
             console.log("---------------------------------");
+            res.render('product', productItems);
         }
         catch (err) {
             console.log(err.message)

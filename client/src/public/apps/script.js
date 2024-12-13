@@ -1,4 +1,4 @@
-const url = "https://wad-ga-07-backend.vercel.app";
+const url = "http://localhost:3000";
 let user = null;
 console.log(user);
 
@@ -96,6 +96,13 @@ document.addEventListener("DOMContentLoaded", function () {
             </button>
           </div>
         `;
+        const logoutDiv = document.createElement("div");
+        logoutDiv.classList.add("header__item");
+        logoutDiv.innerHTML = `
+          <button onclick="handleLogout()">Logout</button>
+        `
+        const headerFeature = document.querySelector(".header__feature");
+        headerFeature.appendChild(logoutDiv);
       } else {
         // Token invalid or missing; show login/signup links
         document.querySelector(".header__account").innerHTML = `
@@ -106,6 +113,22 @@ document.addEventListener("DOMContentLoaded", function () {
             <a href="/login">Login</a>
           </div>
         `;
+        const loginDiv = document.createElement("div");
+        loginDiv.classList.add("header__item");
+        loginDiv.innerHTML = `
+          <a href="/login">Login</a>
+        `;
+
+        const signupDiv = document.createElement("div");
+        signupDiv.classList.add("header__item");
+        signupDiv.innerHTML = `
+          <a href="/signup">Signup</a>
+        `;
+
+
+        const headerFeature = document.querySelector(".header__feature");
+        headerFeature.appendChild(signupDiv);
+        headerFeature.appendChild(loginDiv);
       }
     })
     .catch((error) => {
@@ -203,6 +226,9 @@ function handleSubmitLogin() {
           msg: data.msg,
         }));
         location.href = "/";
+      }
+      else {
+        notify({type: data.status, msg: data.msg})
       }
     })
     .catch((error) => {
@@ -388,3 +414,22 @@ if (storedNotify) {
   // Clear the stored notification
   localStorage.removeItem("notify");
 }
+function updateCartCount(increment = 1) {
+    fetch("http://localhost:3000/cart/", {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+    })
+        .then(response => response.json())
+        .then(data => {
+            const cartCount = document.getElementById('cart-count');
+            var __cart_count = 0;
+            for (const item of data.cart) {
+                __cart_count += item.quantity;
+            }
+            cartCount.innerText = __cart_count;
+        });
+    
+}
+
+updateCartCount(0);

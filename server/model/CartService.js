@@ -10,9 +10,10 @@ class CartService {
                 return { status: 'error', message: "User not found" };
             }
 
+            // const newCartList = user.cart;
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ chưa
             const cartItem = user.cart.find(
-                (item) => item.productId === productID
+                (item) => item.productId.toString() === productID
             );
 
             if (cartItem) {

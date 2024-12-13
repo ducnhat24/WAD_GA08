@@ -8,13 +8,15 @@ function addCart() {
     const idContainer = document.getElementById("hehe");
     let quantity = 1;
     const quantityContainer = document.getElementById("each-production-quanity");
-    console.log(Number(quantityContainer.value));
+    if (quantityContainer.value === "") {
+        notify({type: "warning", msg: "Please fill in a number of product"})
+        return;
+    }
     if (!isNaN(quantityContainer.value) && Number(quantityContainer.value) > 0) {
-        console.log("hehe");
         quantity = Number(quantityContainer.value);
     }
     console.log(quantity);
-    fetch("https://wad-ga-07-backend.vercel.app/cart", {
+    fetch("http://localhost:3000/cart", {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -25,19 +27,36 @@ function addCart() {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'success') {
-                notify({ type: 'success', msg: 'Product added to cart' });
-            } else {
-                alert(data.message);
-            }
+            console.log(data);
+            notify({ type: data.status, msg: data.msg });
         })
+    
+    updateCartCount(quantity);
+}
+
+function updateCartCount(increment = 1) {
+    fetch("http://localhost:3000/cart/", {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+    })
+        .then(response => response.json())
+        .then(data => {
+            const cartCount = document.getElementById('cart-count');
+            var __cart_count = 0;
+            for (const item of data.cart) {
+                __cart_count += item.quantity;
+            }
+            cartCount.innerText = __cart_count;
+        });
+    
 }
 
 // Prefetch next page data
 function prefetchPage(page) {
     if (cache.has(page) || page > totalPages || page < 1) return;
 
-    fetch(`https://wad-ga-07-backend.vercel.app/product/`, {
+    fetch(`http://localhost:3000/product/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page, limit })
@@ -57,7 +76,7 @@ function loadProducts() {
         return;
     }
     showSpinner(); // Hiển thị spinner
-    fetch(`https://wad-ga-07-backend.vercel.app/product/`, {
+    fetch(`http://localhost:3000/product/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: currentPage, limit })
@@ -170,7 +189,7 @@ function filterProducts() {
     console.log(filterPayload);
     showSpinner();
     // Fetch filtered products
-    fetch('https://wad-ga-07-backend.vercel.app/product/filter', {
+    fetch('http://localhost:3000/product/filter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(filterPayload)
@@ -196,6 +215,66 @@ function hideSpinner() {
     document.getElementById('loading-spinner').classList.add('hidden');
 }
 
+function showBrand() {
+    const brandFilterArea = document.getElementById('brand-filter');
+    console.log("hehe");
+    var brands = [];
+    const selectedBrands = Array.from(
+        document.querySelectorAll('#brand-filter input[type="checkbox"]:checked')
+    ).map(input => input.id.replace('checkbox_', ''));
+    
+    fetch('http://localhost:3000/product/brands', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(response => response.json())
+        .then(data => {
+            brands = data.data;
+            for (const brand of brands) {
+                const brandElement = document.createElement('div');
+                brandElement.innerHTML = `
+                    <input type="checkbox" id="checkbox_${brand}" ${selectedBrands.includes(brand) ? 'checked' : ''}>
+                    <label class="btn btn-outline-warning" for="checkbox_${brand}">${brand}</label>
+                `;
+                brandFilterArea.appendChild(brandElement);
+            }
+        })
+        .catch(error => console.error('Error loading brands:', error));
+}
+
+function showModel() {
+    const modelFilterArea = document.getElementById('model-filter');
+    var models = [];
+    const selectedModels = Array.from(
+        document.querySelectorAll('#model-filter input[type="checkbox"]:checked')
+    ).map(input => input.id.replace('checkbox_', ''));
+    
+    fetch('http://localhost:3000/product/models', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(response => response.json())
+        .then(data => {
+            models = data.data;
+            for (const model of models) {
+                const modelElement = document.createElement('div');
+                modelElement.innerHTML = `
+                    <input type="checkbox" id="checkbox_${model}" ${selectedModels.includes(model) ? 'checked' : ''}>
+                    <label class="btn btn-outline-warning" for="checkbox_${model}">${model}</label>
+                `;
+                modelFilterArea.appendChild(modelElement);
+            }
+        })
+        .catch(error => console.error('Error loading models:', error));
+}
+
+function loadSideBar() {
+    showBrand();
+    showModel();
+}
+
 
 // Initial load
+loadSideBar();
 loadProducts();
+updateCartCount(0);

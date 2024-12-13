@@ -54,14 +54,14 @@ class UserService {
             if (!existingUser) {
                 return {
                     status: "error",
-                    message: "Invalid credentials"
+                    msg: "Invalid credentials"
                 };
             }
             const checkPassword = await bcrypt.compare(password, existingUser.password);
             if (checkPassword === false) {
                 return {
                     status: "error",
-                    message: "Wrong password",
+                    msg: "Wrong password",
                 };
             }
             const payload = {
