@@ -20,43 +20,43 @@ class ProductService {
         }
     }
 
-    // async getBrandList() {
-    //     try {
-    //         const response = await fetch("http://localhost:3000/product/brands", {
-    //             method: 'GET',
-    //             headers: { 'Content-Type': 'application/json' },
-    //         });
+    async getBrandList() {
+        try {
+            const response = await fetch("http://localhost:3000/product/brands", {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
 
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! status: ${response.status}`);
-    //         }
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-    //         const data = await response.json();
-    //         return data;
-    //     } catch (err) {
-    //         console.log(err.message);
-    //         return null;
-    //     }
-    // }
+            const data = await response.json();
+            return data;
+        } catch (err) {
+            console.log(err.message);
+            return null;
+        }
+    }
 
-    // async getModelList() {
-    //     try {
-    //         const response = await fetch("http://localhost:3000/product/models", {
-    //             method: 'GET',
-    //             headers: { 'Content-Type': 'application/json' },
-    //         });
+    async getModelList() {
+        try {
+            const response = await fetch("http://localhost:3000/product/models", {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
 
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! status: ${response.status}`);
-    //         }
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-    //         const data = await response.json();
-    //         return data;
-    //     } catch (err) {
-    //         console.log(err.message);
-    //         return null;
-    //     }
-    // }
+            const data = await response.json();
+            return data;
+        } catch (err) {
+            console.log(err.message);
+            return null;
+        }
+    }
 
     async getProductFilter(query) {
         const { brands, models, sortby, sorttype } = query;

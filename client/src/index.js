@@ -18,6 +18,13 @@ app.engine("handlebars", engine({
     formatPrice: (price) => {
       return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
+    formatDate: (input) => {
+      const date = new Date(input);
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
   },
 }));
 app.set("view engine", "handlebars");

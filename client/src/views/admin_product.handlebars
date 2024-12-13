@@ -14,10 +14,10 @@
         </div>
 
         <div class="booklist__search-header">
-            <h2>Kind</h2>
+            <h2>Brands</h2>
         </div>
         <div class="booklist__filterkind">
-            {{#each kinds}}
+            {{#each brands}}
             <div class="booklist__filterkind-item">
                 <input type="checkbox" id="{{this}}" />
                 <label for="{{this}}">{{this}}</label>
@@ -53,40 +53,45 @@
     </div>
 
     <div class="booklist">
-        {{#each books}}
+        {{#each products}}
         <div class="booklist__item">
             <div class="booklist__icon">
-                <i class="fas fa-book icon__book"></i>
+                <div class="img__wrapper">
+                    <img src="data:image/png;base64,{{this.image}}" class="card-img-top" alt="{{this.name}}">
+                </div>
             </div>
 
             <div class="booklist__header">
                 <div class="booklist__bookname">
-                    {{this.bookName}}
+                    {{this.name}}
                 </div>
             </div>
 
             <div class="booklist__content">
                 <div class="booklist__price">
                     <span>
-                        {{formatNumber this.bookPrice}} VND
+                        {{formatPrice this.price}} VND
                     </span>
                 </div>
 
                 <div class="booklist__detail">
-                    Latest updated date: {{this.updateDate}}
+                    Description: {{this.description}}
                 </div>
 
                 <div class="booklist__detail">
-                    Author: {{#slice this.bookAuthor 0 2}}{{this}}{{/slice}}{{#if (gt (length this.bookAuthor)
-                    2)}},...{{/if}}
+                    Latest updated date: {{formatDate this.updateDate}}
                 </div>
 
                 <div class="booklist__detail">
-                    Kind: {{#slice this.bookKind 0 2}}{{this}}{{/slice}}{{#if (gt (length this.bookKind) 2)}},...{{/if}}
+                    Brand: {{this.brand}}
                 </div>
 
                 <div class="booklist__detail">
-                    Amount: <span>{{this.bookCurrentAmount}}</span>
+                    Model: {{this.model}}
+                </div>
+
+                <div class="booklist__detail">
+                    Amount: <span>1</span>
                 </div>
             </div>
         </div>
