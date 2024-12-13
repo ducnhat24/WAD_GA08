@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="/css/admin_product.css">
+{{> each_page_header title="Booklist" description="BookPage" }}
+
+<div class="booklist__body">
+    <div class="booklist__search">
+        <div class="booklist__search-header">
+            <h2>Search</h2>
+        </div>
+        <div class="booklist__searchbar">
+            <input type="text" placeholder="Search by name" />
+            <button>
+                <i class="fas fa-magnifying-glass icon__search"></i>
+            </button>
+        </div>
+
+        <div class="booklist__search-header">
+            <h2>Kind</h2>
+        </div>
+        <div class="booklist__filterkind">
+            {{#each kinds}}
+            <div class="booklist__filterkind-item">
+                <input type="checkbox" id="{{this}}" />
+                <label for="{{this}}">{{this}}</label>
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="booklist__search-header">
+            <h2>Sort</h2>
+        </div>
+
+        <div class="booklist__sort">
+            <button class="booklist__sort-item">
+                <i class="fas fa-up-long icon__sort"></i>
+                <div class="booklist__sort-nameitem">Price</div>
+            </button>
+
+            <button class="booklist__sort-item">
+                <i class="fas fa-down-long icon__sort"></i>
+                <div class="booklist__sort-nameitem">Price</div>
+            </button>
+
+            <button class="booklist__sort-item">
+                <i class="fas fa-up-long icon__sort"></i>
+                <div class="booklist__sort-nameitem">Name</div>
+            </button>
+
+            <button class="booklist__sort-item">
+                <i class="fas fa-down-long icon__sort"></i>
+                <div class="booklist__sort-nameitem">Name</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="booklist">
+        {{#each books}}
+        <div class="booklist__item">
+            <div class="booklist__icon">
+                <i class="fas fa-book icon__book"></i>
+            </div>
+
+            <div class="booklist__header">
+                <div class="booklist__bookname">
+                    {{this.bookName}}
+                </div>
+            </div>
+
+            <div class="booklist__content">
+                <div class="booklist__price">
+                    <span>
+                        {{formatNumber this.bookPrice}} VND
+                    </span>
+                </div>
+
+                <div class="booklist__detail">
+                    Latest updated date: {{this.updateDate}}
+                </div>
+
+                <div class="booklist__detail">
+                    Author: {{#slice this.bookAuthor 0 2}}{{this}}{{/slice}}{{#if (gt (length this.bookAuthor)
+                    2)}},...{{/if}}
+                </div>
+
+                <div class="booklist__detail">
+                    Kind: {{#slice this.bookKind 0 2}}{{this}}{{/slice}}{{#if (gt (length this.bookKind) 2)}},...{{/if}}
+                </div>
+
+                <div class="booklist__detail">
+                    Amount: <span>{{this.bookCurrentAmount}}</span>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

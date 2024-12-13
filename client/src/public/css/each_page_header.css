@@ -1,0 +1,52 @@
+.page__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--item-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.page__header .page__title {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.page__title h1 {
+    color: var(--main-color);
+    font-size: 30px;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+.page__title p {
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.page__user {
+    display: flex;
+    align-items: center;
+}
+
+.page__user button {
+    background-color: var(--main-color);
+    padding: 10px;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page__user button .icon__user {
+    font-size: 20px;
+    color: var(--text-in-background-color);
+}

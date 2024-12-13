@@ -32,4 +32,13 @@ a {
     --warning-color: #ffc107;
     --width-notify: 400px;
     --right-notify: 20px;
+
+    --border-radius: 10px;
+    --main-color: #80002a;
+    --main-scroll-color: #3b3b3b93;
+    --background-color: #fff;
+    --item-color: #f2f2f2;
+    --text-color: #000;
+    --text-in-background-color: #fff;
+
 }

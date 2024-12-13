@@ -10,6 +10,7 @@ app.use(express.json());
 app.engine("handlebars", engine({
   layoutsDir: path.join(__dirname, "views/layouts"), // Thư mục chứa layout
   defaultLayout: "main", // Layout mặc định
+  partialsDir: path.join(__dirname, "views/partials"), // Thư mục chứa partial
   extname: ".handlebars", // Sử dụng phần mở rộng .handlebars
   helpers: {
     eqString: (a, b) => String(a) === String(b),

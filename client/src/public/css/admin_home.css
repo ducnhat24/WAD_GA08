@@ -1,0 +1,318 @@
+.home {
+    margin-top: 10px;
+}
+
+.home .home__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--border-radius);
+}
+
+.home .home__header .home__title p {
+    font-size: 1.0rem;
+    font-weight: 500;
+}
+
+.home .home__header .home__title h1 {
+    font-size: 2.0rem;
+    font-weight: 700;
+    color: var(--main-color);
+}
+
+.home .home__header .home__feature {
+    display: flex;
+    align-items: center;
+}
+
+.home__header .home__feature .home__search {
+    display: flex;
+    align-items: center;
+    border-radius: var(--border-radius);
+    padding: 5px 10px;
+    border: 2px solid #000;
+    overflow: hidden;
+}
+
+.home__header .home__feature .home__search input {
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background-color: transparent;
+    transition: all 0.4s;
+    width: 0;
+    opacity: 0;
+}
+
+.home__header .home__feature .home__search:hover input {
+    width: 300px;
+    opacity: 1;
+}
+
+.home__header .home__feature .home__search {
+    font-size: 1.2rem;
+    margin: 0 5px;
+}
+
+.home .home__header .home__profile {
+    margin-left: 20px;
+    color: var(--text-in-background-color);
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--main-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*---------------------*/
+.home .home__general {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.home .home__general .home__general__card {
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    margin: 15px 0;
+    min-width: 230px;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    transition: all 0.4s;
+    transition: background 0s;
+    background-color: var(--item-color);
+}
+
+.home__general .home__general__card .home__general__icon {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: var(--main-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    color: var(--text-in-background-color);
+    position: relative;
+
+}
+
+.home__general .home__general__card .home__general__icon::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-color);
+    border-radius: 50%;
+    z-index: -1;
+    transition: all 0.4s;
+}
+
+.home__general .home__general__card .home__general__main {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.home__general__card .home__general__main .home__general__text {
+    color: var(--text-color);
+    transition: all 0.4s;
+}
+
+.home__general__main .home__general__text .home__general__title {
+    font-size: 0.8rem;
+}
+
+.home__general__main .home__general__text .home__general__value {
+    font-size: 1.5rem;
+    margin: 5px 0;
+}
+
+.home__general__main .home__general__text .home__general__update {
+    font-size: 0.7rem;
+    font-weight: 400;
+}
+
+.home__general__card .home__general__main .home__general__percent {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    font-size: 0.7rem;
+    color: var(--main-color);
+    border-radius: 50%;
+    border: 5px solid var(--main-color);
+    transition: all 0.4s;
+}
+
+.home__general .home__general__card:hover {
+    color: var(--text-in-background-color);
+}
+
+.home__general__card:hover .home__general__main .home__general__text {
+    color: var(--text-in-background-color);
+}
+
+.home__general .home__general__card:hover .home__general__icon::before {
+    width: 600px;
+    height: 600px;
+}
+
+.home__general .home__general__card:hover .home__general__percent {
+    color: var(--text-in-background-color);
+    border-color: var(--text-in-background-color);
+}
+
+/*------------------------------------*/
+
+
+.home .home__recent .home__recent__header {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--main-color);
+    margin: 10px;
+}
+
+.home .home__recent {
+    margin-top: 10px;
+}
+
+.home .home__recent .home__recent__body {
+    width: 100%;
+    border-radius: var(--border-radius);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+
+    background: var(--item-color);
+    overflow: auto;
+}
+
+.home__recent .home__recent__body .home__recent__table {
+    width: 100%;
+    overflow: auto;
+    max-height: calc(100vh - 374px);
+    padding: 5px 20px;
+}
+
+.home__recent .home__recent__body .home__recent__table::-webkit-scrollbar {
+    width: 10px;
+}
+
+.home__recent .home__recent__body .home__recent__table::-webkit-scrollbar-thumb {
+    background-color: var(--main-scroll-color);
+    border-radius: var(--border-radius);
+}
+
+.home__recent__body .home__recent__table .home__recent__field {
+    display: flex;
+    color: var(--text-color);
+    width: 100%;
+    border-radius: var(--border-radius);
+    transition: all 0.4s;
+}
+
+.home__recent__body .home__recent__table .home__recent__valuefield:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.home__recent__body .home__recent__table .home__recent__valuefield:hover {
+    transform: translateY(-2px);
+}
+
+.home__recent__table .home__recent__field .home__recent__attribute {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+    font-weight: 600;
+}
+
+.home__recent__table .home__recent__field .home__recent__attribute {
+    padding: 0 10px;
+    flex: 3;
+}
+
+.home__recent__table .home__recent__field .home__recent__attribute:nth-child(3) {
+    flex: 2;
+}
+
+
+.home__recent__table .home__recent__field .home__recent__attribute:nth-child(4) {
+    flex: 1;
+}
+
+.home__recent__table .home__recent__field .home__recent__attribute span {
+    text-align: center;
+}
+
+.home__recent__body .home__recent__table .home__recent__headerfield {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--main-color);
+    margin-bottom: 10px;
+    background-color: transparent;
+    border-radius: 0;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.4);
+}
+
+
+@media (max-width: 1100px) {
+    .home__recent .home__recent__body .home__recent__table {
+        height: unset;
+    }
+
+    .home .home__general {
+        justify-content: center;
+    }
+
+    .home .home__general .home__general__card {
+        margin: 10px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .home__recent__body .home__recent__table .home__recent__field {
+        width: 1000px;
+    }
+
+    .home .home__recent .home__recent__body {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 800px) {
+    .home .home__general .home__general__card {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .home__general .home__general__card .home__general__icon {
+        margin-right: 10px;
+    }
+
+    .home__general .home__general__card .home__general__main {
+        flex: 1;
+    }
+
+    .home__general .home__general__card:hover .home__general__icon::before {
+        width: 1500px;
+        height: 1500px;
+    }
+
+}

@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="/css/each_page_header.css" />
+
+<div class="page__header">
+    <div class="page__title">
+        <p>{{description}}</p>
+        <h1>{{title}}</h1>
+    </div>
+
+    {{#if isHide}}
+    <div class="page__user">
+        <a href="/user">
+            <button>
+                <i class="fas fa-folder-open icon__user"></i>
+            </button>
+        </a>
+    </div>
+    {{/if}}
+</div>
