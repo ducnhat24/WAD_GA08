@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../schemas/User');
 const jwt = require('jsonwebtoken');
 const { generateAccessToken, generateRefreshToken } = require('./JWTAction');
-const UserService = require('../model/UserService'); // Import UserService
+const UserService = require('../components/user/model/UserService'); // Import UserService
 const userService = new UserService();
 // Khởi tạo Passport với Google Strategy
 // passport.use(new GoogleStrategy({

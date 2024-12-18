@@ -1,6 +1,6 @@
 const express = require("express");
 const cartRoute = express.Router();
-const CartController = require("../controllers/CartController");
+const CartController = require("../components/cart/controllers/CartController");
 const { verifyToken } = require("../middleware/JWTAction");
 
 // Thêm sản phẩm vào giỏ hàng

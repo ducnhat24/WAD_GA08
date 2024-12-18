@@ -1,7 +1,7 @@
 const express = require('express');
 const productRouter = express.Router();
 const { verifyToken } = require('../middleware/JWTAction');
-const ProductController = require('../controllers/ProductController');
+const ProductController = require('../components/product/controllers/ProductController');
 
 productRouter.get('/brands', ProductController.getAllBrands);
 productRouter.get('/models', ProductController.getAllModels);

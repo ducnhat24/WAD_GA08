@@ -6,11 +6,10 @@ const { engine } = require('express-handlebars');
 const { route } = require('./routes/index');
 const cookieParser = require('cookie-parser');
 app.use(express.json());
-// Cấu hình Handlebars với extension mặc định
+
 app.engine("handlebars", engine({
-  layoutsDir: path.join(__dirname, "views/layouts"), // Thư mục chứa layout
+  layoutsDir: path.join(__dirname, ""), // Thư mục chứa layout
   defaultLayout: "main", // Layout mặc định
-  partialsDir: path.join(__dirname, "views/partials"), // Thư mục chứa partial
   extname: ".handlebars", // Sử dụng phần mở rộng .handlebars
   helpers: {
     eqString: (a, b) => String(a) === String(b),
@@ -28,8 +27,17 @@ app.engine("handlebars", engine({
   },
 }));
 app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname, "views"));
-
+app.set('views', [
+  path.join(__dirname, 'components', 'product', 'product_list', 'views'),
+  path.join(__dirname, 'components', 'product', 'product_details', 'views'),
+  path.join(__dirname, 'components', 'home', 'views'),
+  path.join(__dirname, 'components', 'about_us', 'views'),
+  path.join(__dirname, 'components', 'signup', 'views'),
+  path.join(__dirname, 'components', 'cart', 'views'),
+  path.join(__dirname, 'components', 'contact', 'views'),
+  path.join(__dirname, 'components', 'login', 'views'),
+  path.join(__dirname, 'components', 'order', 'views'),
+]);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 

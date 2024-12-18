@@ -27,11 +27,13 @@ function addCart() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             notify({ type: data.status, msg: data.msg });
         })
+        .then(() => {
+            updateCartCount();
+        })
+        .catch(error => console.error('Error adding to cart:', error));
     
-    updateCartCount(quantity);
 }
 
 function updateCartCount(increment = 1) {

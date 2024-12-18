@@ -1,6 +1,5 @@
 const url = "http://localhost:3000";
 let user = null;
-console.log(user);
 
 function showNav() {
   const navBar = document.querySelector(".header__sidebar");
@@ -19,7 +18,6 @@ function hideNav() {
 }
 
 function notify(obj) {
-  console.log("Access notify function");
   const main = document.getElementById("notify");
   const icons = {
     success: "fa-check",
