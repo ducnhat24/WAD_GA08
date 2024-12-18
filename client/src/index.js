@@ -7,6 +7,8 @@ const { route } = require('./routes/index');
 const cookieParser = require('cookie-parser');
 app.use(express.json());
 
+const appDir = path.dirname(require.main.filename || process.mainModule.filename);
+
 app.engine("handlebars", engine({
   layoutsDir: path.join(appDir, 'client', 'src'), // Thư mục chứa layout
   defaultLayout: "main", // Layout mặc định
@@ -27,7 +29,6 @@ app.engine("handlebars", engine({
   },
 }));
 app.set("view engine", "handlebars");
-const appDir = path.dirname(require.main.filename || process.mainModule.filename);
 app.set("views", [
   path.join(appDir, 'components', 'product', 'product_list', 'views'),
   path.join(appDir, 'components', 'product', 'product_details', 'views'),
