@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 app.use(express.json());
 
 app.engine("handlebars", engine({
-  layoutsDir: path.join(__dirname, ""), // Thư mục chứa layout
+  layoutsDir: path.join(__dirname), // Thư mục chứa layout
   defaultLayout: "main", // Layout mặc định
   extname: ".handlebars", // Sử dụng phần mở rộng .handlebars
   helpers: {
