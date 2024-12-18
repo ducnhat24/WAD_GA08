@@ -3,7 +3,7 @@
 class ProductDetailsService {
     async getProductDetails(id) {
         try {
-            const response = await fetch(`http://localhost:3000/product/${id}`, {
+            const response = await fetch(`https://wad-ga-08.vercel.app/${id}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -23,7 +23,7 @@ class ProductDetailsService {
     async getSameProducts(brand, model) {
         try {
             //fetch all products 
-            const response = await fetch("http://localhost:3000/product/", {
+            const response = await fetch("https://wad-ga-08.vercel.app/product/", {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });

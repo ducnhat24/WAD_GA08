@@ -1,4 +1,4 @@
-const url = "http://localhost:3000";
+const url = "https://wad-ga-08.vercel.app";
 let user = null;
 
 function showNav() {
@@ -413,7 +413,7 @@ if (storedNotify) {
   localStorage.removeItem("notify");
 }
 function updateCartCount(increment = 1) {
-    fetch("http://localhost:3000/cart/", {
+    fetch("https://wad-ga-08.vercel.app/cart/", {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'

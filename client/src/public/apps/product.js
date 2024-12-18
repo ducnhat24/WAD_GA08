@@ -16,7 +16,7 @@ function addCart() {
         quantity = Number(quantityContainer.value);
     }
     console.log(quantity);
-    fetch("http://localhost:3000/cart", {
+    fetch("https://wad-ga-08.vercel.app/cart", {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -37,7 +37,7 @@ function addCart() {
 }
 
 function updateCartCount(increment = 1) {
-    fetch("http://localhost:3000/cart/", {
+    fetch("https://wad-ga-08.vercel.app/cart/", {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
@@ -58,7 +58,7 @@ function updateCartCount(increment = 1) {
 function prefetchPage(page) {
     if (cache.has(page) || page > totalPages || page < 1) return;
 
-    fetch(`http://localhost:3000/product/`, {
+    fetch(`https://wad-ga-08.vercel.app/product/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page, limit })
@@ -78,7 +78,7 @@ function loadProducts() {
         return;
     }
     showSpinner(); // Hiển thị spinner
-    fetch(`http://localhost:3000/product/`, {
+    fetch(`https://wad-ga-08.vercel.app/product/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: currentPage, limit })
@@ -191,7 +191,7 @@ function filterProducts() {
     console.log(filterPayload);
     showSpinner();
     // Fetch filtered products
-    fetch('http://localhost:3000/product/filter', {
+    fetch('https://wad-ga-08.vercel.app/product/filter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(filterPayload)
@@ -225,7 +225,7 @@ function showBrand() {
         document.querySelectorAll('#brand-filter input[type="checkbox"]:checked')
     ).map(input => input.id.replace('checkbox_', ''));
     
-    fetch('http://localhost:3000/product/brands', {
+    fetch('https://wad-ga-08.vercel.app/product/brands', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -251,7 +251,7 @@ function showModel() {
         document.querySelectorAll('#model-filter input[type="checkbox"]:checked')
     ).map(input => input.id.replace('checkbox_', ''));
     
-    fetch('http://localhost:3000/product/models', {
+    fetch('https://wad-ga-08.vercel.app/product/models', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
