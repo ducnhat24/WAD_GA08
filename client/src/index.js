@@ -30,10 +30,15 @@ app.engine("handlebars", engine({
 }));
 app.set("view engine", "handlebars");
 app.set("views", [
-  path.join(appDir, 'components', 'product', 'product_list', 'views'),
-  path.join(appDir, 'components', 'product', 'product_details', 'views'),
-  path.join(appDir, 'components', 'home', 'views'),
-  // Các thư mục khác...
+  path.join(appDir, 'client', 'src', 'components', 'product', 'product_list', 'views'),
+  path.join(appDir, 'client', 'src', 'components', 'product', 'product_details', 'views'),
+  path.join(appDir, 'client', 'src', 'components', 'home', 'views'),
+  path.join(appDir, 'client', 'src', 'components', 'about_us', 'views'),
+  path.join(appDir, 'client', 'src', 'components', 'signup', 'views'),
+  path.join(appDir, 'client', 'src', 'components', 'cart', 'views'),
+  path.join(appDir, 'client', 'src', 'components', 'contact', 'views'),
+  path.join(appDir, 'client', 'src', 'components', 'login', 'views'),
+  path.join(appDir, 'client', 'src', 'components', 'order', 'views'),
 ]);
 app.use(express.static(path.join(appDir, "public")));
 app.use(cookieParser());
