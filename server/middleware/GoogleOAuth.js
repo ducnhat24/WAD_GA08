@@ -5,30 +5,7 @@ const jwt = require('jsonwebtoken');
 const { generateAccessToken, generateRefreshToken } = require('./JWTAction');
 const UserService = require('../components/user/model/UserService'); // Import UserService
 const userService = new UserService();
-// Khởi tạo Passport với Google Strategy
-// passport.use(new GoogleStrategy({
-//     clientID: process.env.GOOGLE_CLIENT_ID,
-//     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//     callbackURL: `${process.env.BASE_URL}/auth/google/callback`,
-// }, async (accessToken, refreshToken, profile, done) => {
-//     console.log('Profile:', profile);
-//     console.log('AccessToken:', accessToken);
-//     try {
-//         // Kiểm tra nếu user đã tồn tại
-//         let user = await User.findOne({ googleId: profile.id });
-//         if (!user) {
-//             // Nếu chưa có, tạo mới
-//             user = await User.create({
-//                 googleId: profile.id,
-//                 email: profile.emails[0].value,
-//                 name: profile.displayName,
-//             });
-//         }
-//         done(null, user);
-//     } catch (err) {
-//         done(err, null);
-//     }
-// }));
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -94,7 +71,7 @@ function handleGoogleCallback(req, res, next) {
         // Gửi token về client
         res.cookie('accessToken', result.accessToken, { sameSite: 'none', secure: true });
         res.cookie('refreshToken', result.refreshToken, { sameSite: 'none', secure: true });
-        res.redirect('http://localhost:5000/'); // Redirect về trang chính hoặc client-side xử lý token
+        res.redirect('https://wad-ga-08-client.vercel.app'); // Redirect về trang chính hoặc client-side xử lý token
     })(req, res, next);
 }
 
