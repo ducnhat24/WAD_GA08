@@ -160,6 +160,7 @@ function handleSubmitSignup() {
 
   // Send data to server
   fetch(url + "/user/signup", {
+    credentials: 'include', // Đảm bảo cookies được gửi kèm
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -202,6 +203,7 @@ function handleSubmitLogin() {
 
   // Send data to server
   fetch(url + "/user/login", {
+    credentials: 'include', // Đảm bảo cookies được gửi kèm
     method: "POST",
     headers: {
       "Content-Type": "application/json",

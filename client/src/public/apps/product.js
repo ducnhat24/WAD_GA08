@@ -18,6 +18,7 @@ function addCart() {
     console.log(quantity);
     fetch("https://wad-ga-08.vercel.app/cart", {
         method: 'POST',
+        credentials: 'include', // Đảm bảo cookies được gửi kèm
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             productID: idContainer.innerText,
@@ -78,6 +79,7 @@ function loadProducts() {
     }
     showSpinner(); // Hiển thị spinner
     fetch(`https://wad-ga-08.vercel.app/product/`, {
+        credentials: 'include', // Đảm bảo cookies được gửi kèm
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page: currentPage, limit })
@@ -158,6 +160,7 @@ function handleSearch() {
     fetch(`https://wad-ga-08.vercel.app/product/search`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include', // Đảm bảo cookies được gửi kèm
       body: JSON.stringify({ 
         keysearch: query,
         page: currentPage,
@@ -213,6 +216,7 @@ function handleSearch() {
         : { page, limit };
   
       fetch(url, {
+          credentials: 'include', // Đảm bảo cookies được gửi kèm
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -273,6 +277,7 @@ function filterProducts() {
     // Fetch filtered products
     fetch('https://wad-ga-08.vercel.app/product/filter', {
         method: 'POST',
+        credentials: 'include', // Đảm bảo cookies được gửi kèm
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(filterPayload)
     })
@@ -306,6 +311,7 @@ function showBrand() {
     ).map(input => input.id.replace('checkbox_', ''));
     
     fetch('https://wad-ga-08.vercel.app/product/brands', {
+        credentials: 'include', // Đảm bảo cookies được gửi kèm
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -333,6 +339,7 @@ function showModel() {
     
     fetch('https://wad-ga-08.vercel.app/product/models', {
         method: 'GET',
+        credentials: 'include', // Đảm bảo cookies được gửi kèm
         headers: { 'Content-Type': 'application/json' }
     })
         .then(response => response.json())
