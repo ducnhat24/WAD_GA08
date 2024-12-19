@@ -18,7 +18,6 @@ function addCart() {
     console.log(quantity);
     fetch("https://wad-ga-08.vercel.app/cart", {
         method: 'POST',
-        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             productID: idContainer.innerText,
