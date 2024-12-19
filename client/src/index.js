@@ -1,14 +1,14 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 5000;
+// const port = 5000;
 const { engine } = require('express-handlebars');
 const { route } = require('./routes/index');
 const cookieParser = require('cookie-parser');
 app.use(express.json());
 
 app.engine("handlebars", engine({
-  layoutsDir: path.join(__dirname), // Thư mục chứa layout
+  layoutsDir: path.join(__dirname, "layouts"), // Thư mục chứa layout
   defaultLayout: "main", // Layout mặc định
   extname: ".handlebars", // Sử dụng phần mở rộng .handlebars
   helpers: {
