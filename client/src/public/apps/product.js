@@ -81,8 +81,7 @@ function loadProducts() {
     fetch(`https://wad-ga-08.vercel.app/product/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ page: currentPage, limit }),
-        credentials: 'include'
+        body: JSON.stringify({ page: currentPage, limit })
     })
         .then(response => response.json())
         .then(data => {
@@ -145,156 +144,87 @@ function createProductElement(product) {
     return card;
 }
 
-// function handleSearch() {
-//   const query = document.querySelector("#search__bar__product").value;
-//   console.log("Search query: ", query); // Check if query is being captured correctly
-
-//   if (!query) {
-//     notify({
-//       type: "warning",
-//       msg: "Please enter a search query",
-//     });
-//     return;
-//   }
-//   console.log("Search query: ", query);
-
-//   fetch("https://wad-ga-08.vercel.app/product/search?keysearch=" + query)
-//     .then((res) => res.json())
-//     .then((data) => {
-//       console.log(data);
-//       if (data.length === 0) {
-//         notify({
-//           type: "warning",
-//           msg: "No results found",
-//         });
-//       }
-//       else {
-//         // Render the search results
-//         renderProducts(data.data);
-//           // handle pagination
-//           document.getElementById('page-info').textContent = `Page 1 of 1`;
-//           document.getElementById('prev-btn').disabled = true;
-//           document.getElementById('next-btn').disabled = true;
-
-//       }
-//     })
-//     .catch((error) => {
-//       notify({
-//         type: "error",
-//         msg: error.message,
-//       });
-//     });
-
-// }
-
 function handleSearch() {
-  const query = document.querySelector("#search__bar__product").value;
-
-  if (!query) {
-    notify({
-      type: "warning",
-      msg: "Please enter a search query",
-    });
-    return;
+    const query = document.querySelector("#search__bar__product").value;
+  
+    if (!query) {
+      notify({
+        type: "warning",
+        msg: "Please enter a search query",
+      });
+      return;
+    }
+  
+    showSpinner();
+    fetch(`https://wad-ga-08.vercel.app/product/search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        keysearch: query,
+        page: currentPage,
+        limit: limit
+      })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        hideSpinner();
+        if (data.item.length === 0) {
+          notify({
+            type: "warning",
+            msg: "No results found",
+          });
+          // Reset pagination when no results found
+          document.getElementById('page-info').textContent = `Page 0 of 0`;
+          document.getElementById('prev-btn').disabled = true;
+          document.getElementById('next-btn').disabled = true;
+          const itemsContainer = document.getElementById('items-container');
+          itemsContainer.innerHTML = ''; // Clear current items
+        } else {
+          // Update total pages from search results
+          totalPages = data.totalPages;
+          // Cache the search results
+          cache.clear(); // Clear existing cache
+          cache.set(currentPage, data.item);
+          // Render the search results
+          renderProducts(data.item);
+          // Prefetch next page of search results
+          prefetchPage(currentPage + 1);
+        }
+      })
+      .catch((error) => {
+        hideSpinner();
+        notify({
+          type: "error",
+          msg: error.message,
+        });
+      });
+  }
+  
+  // Update prefetchPage to handle search queries
+  function prefetchPage(page) {
+      if (cache.has(page) || page > totalPages || page < 1) return;
+  
+      const searchQuery = document.querySelector("#search__bar__product").value;
+      const url = searchQuery 
+        ? 'https://wad-ga-08.vercel.app/product/search'
+        : 'https://wad-ga-08.vercel.app/product/';
+      
+      const payload = searchQuery 
+        ? { keysearch: searchQuery, page, limit }
+        : { page, limit };
+  
+      fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+      })
+          .then(response => response.json())
+          .then(data => {
+              cache.set(page, data.item);
+          })
+          .catch(error => console.error(`Error prefetching page ${page}:`, error));
   }
 
-  showSpinner();
-  fetch(`https://wad-ga-08.vercel.app/product/search`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ 
-      keysearch: query,
-      page: currentPage,
-      limit: limit
-    }),
-    credentials: 'include'
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      hideSpinner();
-      if (data.item.length === 0) {
-        notify({
-          type: "warning",
-          msg: "No results found",
-        });
-        // Reset pagination when no results found
-        document.getElementById('page-info').textContent = `Page 0 of 0`;
-        document.getElementById('prev-btn').disabled = true;
-        document.getElementById('next-btn').disabled = true;
-        const itemsContainer = document.getElementById('items-container');
-        itemsContainer.innerHTML = ''; // Clear current items
-      } else {
-        // Update total pages from search results
-        totalPages = data.totalPages;
-        // Cache the search results
-        cache.clear(); // Clear existing cache
-        cache.set(currentPage, data.item);
-        // Render the search results
-        renderProducts(data.item);
-        // Prefetch next page of search results
-        prefetchPage(currentPage + 1);
-      }
-    })
-    .catch((error) => {
-      hideSpinner();
-      notify({
-        type: "error",
-        msg: error.message,
-      });
-    });
-}
-
-// Update prefetchPage to handle search queries
-function prefetchPage(page) {
-    if (cache.has(page) || page > totalPages || page < 1) return;
-
-    const searchQuery = document.querySelector("#search__bar__product").value;
-    const url = searchQuery 
-      ? 'https://wad-ga-08.vercel.app/product/search'
-      : 'https://wad-ga-08.vercel.app/product/';
-    
-    const payload = searchQuery 
-      ? { keysearch: searchQuery, page, limit }
-      : { page, limit };
-
-    fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    })
-        .then(response => response.json())
-        .then(data => {
-            cache.set(page, data.item);
-        })
-        .catch(error => console.error(`Error prefetching page ${page}:`, error));
-}
-
-// Add event listener for search input
-document.querySelector("#search__bar__product").addEventListener("keyup", function(event) {
-    if (event.key === "Enter") {
-        currentPage = 1; // Reset to first page when searching
-        cache.clear(); // Clear the cache for new search
-        handleSearch();
-    }
-});
-
-function loadSearchProducts(productList) {
-    const itemsContainer = document.getElementById('items-container');
-    itemsContainer.innerHTML = ''; // Clear current items
-
-    const fragment = document.createDocumentFragment();
-    productList.forEach(product => {
-        const productElement = createProductElement(product);
-        fragment.appendChild(productElement);
-    });
-    itemsContainer.appendChild(fragment); // Append all at once
-
-    document.getElementById('page-info').textContent = `Page 1 of 1`;
-    document.getElementById('prev-btn').disabled = true;
-    document.getElementById('next-btn').disabled = true;
-    
-    
-}
 // Event listeners for pagination buttons
 document.getElementById('prev-btn').addEventListener('click', () => {
     if (currentPage > 1) {
@@ -345,8 +275,7 @@ function filterProducts() {
     fetch('https://wad-ga-08.vercel.app/product/filter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(filterPayload),
-        credentials: 'include'
+        body: JSON.stringify(filterPayload)
     })
         .then(response => response.json())
         .then(data => {
@@ -379,8 +308,7 @@ function showBrand() {
     
     fetch('https://wad-ga-08.vercel.app/product/brands', {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include'
+        headers: { 'Content-Type': 'application/json' }
     })
         .then(response => response.json())
         .then(data => {
@@ -406,8 +334,7 @@ function showModel() {
     
     fetch('https://wad-ga-08.vercel.app/product/models', {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include'
+        headers: { 'Content-Type': 'application/json' }
     })
         .then(response => response.json())
         .then(data => {
