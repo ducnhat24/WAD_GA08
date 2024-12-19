@@ -9,7 +9,7 @@ const userService = new UserService();
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `${process.env.BASE_URL}/auth/google/callback`,
+    callbackURL: `https://wad-ga-08.vercel.app/auth/google/callback`,
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         console.log('Google Profile:', profile);
