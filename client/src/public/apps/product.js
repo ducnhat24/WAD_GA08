@@ -81,7 +81,8 @@ function loadProducts() {
     fetch(`https://wad-ga-08.vercel.app/product/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ page: currentPage, limit })
+        body: JSON.stringify({ page: currentPage, limit }),
+        credentials: 'include'
     })
         .then(response => response.json())
         .then(data => {
@@ -205,7 +206,8 @@ function handleSearch() {
       keysearch: query,
       page: currentPage,
       limit: limit
-    })
+    }),
+    credentials: 'include'
   })
     .then((res) => res.json())
     .then((data) => {
@@ -343,7 +345,8 @@ function filterProducts() {
     fetch('https://wad-ga-08.vercel.app/product/filter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(filterPayload)
+        body: JSON.stringify(filterPayload),
+        credentials: 'include'
     })
         .then(response => response.json())
         .then(data => {
@@ -376,7 +379,8 @@ function showBrand() {
     
     fetch('https://wad-ga-08.vercel.app/product/brands', {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
     })
         .then(response => response.json())
         .then(data => {
@@ -402,7 +406,8 @@ function showModel() {
     
     fetch('https://wad-ga-08.vercel.app/product/models', {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
     })
         .then(response => response.json())
         .then(data => {
